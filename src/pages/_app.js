@@ -9,10 +9,21 @@ const roboto = Roboto({
 })
 
 
-export default function App({ Component, pageProps }) {
-  return (
-  <main className={`${roboto.variable} font-sans`}>
+// export default function App({ Component, pageProps }) {
+//   return (
+//   <main className={`${roboto.variable} font-sans`}>
+//      <Component {...pageProps} />
+//   </main>
+//   )
+// }
+
+export default function MyApp({ Component, pageProps }) {
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => page)
+
+  return getLayout(
+    <main className={`${roboto.variable} font-sans`}>
      <Component {...pageProps} />
-  </main>
+    </main>
   )
 }
