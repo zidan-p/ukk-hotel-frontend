@@ -19,7 +19,7 @@ export default ({children}) => {
         <>
         <div className={`${roboto.variable}`}>
             <NavbarHeader />
-            <div className="min-h-screen h-screen">
+            <div className="min-h-screen">
             {children}
             </div>
             <FooterGuest />

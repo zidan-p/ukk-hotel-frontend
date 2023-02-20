@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 
 
-const links = [
-    {
+const links = [{
         label : "Pesan Hotel",
         path : "/pesan-hotel"
     },{
@@ -41,6 +40,13 @@ export default (props)=>{
                 <Link href="/">Wikusama Hotel</Link>
             </h4>
             <ul className="flex gap-9 text-sm">
+            <li 
+            className={`${router.pathname === "/" ? "text-yellow-300" : "text-gray-500 hover:text-white"} hover:underline underline-offset-2`}
+            >
+                <Link href={"/"}>
+                    Home
+                </Link>
+            </li>
             {
             links.map((link,index) => {
                 return (
@@ -58,6 +64,7 @@ export default (props)=>{
                 )
             })
             }
+            
             </ul>
         </nav>
     )

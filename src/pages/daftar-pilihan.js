@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 //component
 import TipeKamarList from '@/components/guest/tipeKamarList/TipeKamarList'
+import TipeKamarModalUp from '@/components/guest/modal/TipeKamarModalUp'
 
 // layout
 import MainGuestLayout from '@/layouts/MainGuestLayout'
@@ -30,13 +31,18 @@ export default function DaftarPilihan(){
     useEffect(()=>{getAllData()},[])
 
     return (
-        <div className='h-full flex flex-col'>
+        <>
         <section className='px-28 py-4'>
             <h1 className={`${adamina.className} text-3xl mb-4`}>Daftar Tipe Kamar</h1>
         </section>
         <section className='px-28'>
-            <div className="overflow-auto">
-                <div className='flex gap-3 overflow-auto'>
+            <div className="">
+                <div className='justify-between flex flex-wrap gap-3'>
+                    {tipeKamarList.map((tipeKamar,i) => {return (
+                        <div className="shrink-0 max-h-full">
+                            <TipeKamarList dataTipeKamar={tipeKamar}/>
+                        </div>
+                    )})}
                     {tipeKamarList.map((tipeKamar,i) => {return (
                         <div className="shrink-0 max-h-full">
                             <TipeKamarList dataTipeKamar={tipeKamar}/>
@@ -45,7 +51,8 @@ export default function DaftarPilihan(){
                 </div>
             </div>
         </section>
-        </div>
+        <TipeKamarModalUp />
+        </>
     )
 }
 
