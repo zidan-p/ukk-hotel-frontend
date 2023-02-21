@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState,useEffect,useRef } from 'react'
 import {Head, Main} from 'next/document'
 
 //feature
@@ -18,6 +18,7 @@ const adamina = Adamina({subsets : ["latin"],weight : ["400"]})
 
 export default function DaftarPilihan(){
     const [tipeKamarList, setTipeKamarList] = useState([])
+    const modal = useRef(null);
 
     async function getAllData() {
         try {
@@ -30,28 +31,39 @@ export default function DaftarPilihan(){
 
     useEffect(()=>{getAllData()},[])
 
+    const handleOpenModal = (idTipeKamar) => {
+        console.log(idTipeKamar);
+        modal.current.changeIdTipeKamarModal(idTipeKamar)
+        modal.current.openModal();
+
+    }
+
+    const HandleCloseModal = () => {
+        modal.current.closeModal();
+    }
+
     return (
         <>
         <section className='px-28 py-4'>
             <h1 className={`${adamina.className} text-3xl mb-4`}>Daftar Tipe Kamar</h1>
         </section>
-        <section className='px-28'>
+        <section className='px-28 mb-10'>
             <div className="">
-                <div className='justify-between flex flex-wrap gap-3'>
+                <div className='justify-center flex flex-wrap items-stretch gap-3'>
                     {tipeKamarList.map((tipeKamar,i) => {return (
-                        <div className="shrink-0 max-h-full">
-                            <TipeKamarList dataTipeKamar={tipeKamar}/>
+                        <div key={i} className="shrink-0 max-h-full">
+                            <TipeKamarList onClickElement={handleOpenModal} dataTipeKamar={tipeKamar}/>
                         </div>
                     )})}
                     {tipeKamarList.map((tipeKamar,i) => {return (
-                        <div className="shrink-0 max-h-full">
-                            <TipeKamarList dataTipeKamar={tipeKamar}/>
+                        <div key={i} className="shrink-0 max-h-full">
+                            <TipeKamarList onClickElement={handleOpenModal} dataTipeKamar={tipeKamar}/>
                         </div>
                     )})}
                 </div>
             </div>
         </section>
-        <TipeKamarModalUp />
+        <TipeKamarModalUp ref={modal} />
         </>
     )
 }

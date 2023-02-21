@@ -10,6 +10,7 @@ const defaultOptions = {
     headers: {
         'Content-Type': 'application/json',
     },
+    cors: "http://localhost:3005"
 };
 
 // Create instance
