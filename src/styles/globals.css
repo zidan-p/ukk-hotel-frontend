@@ -17,9 +17,15 @@
     height: 4px;
     background-color: #1e293b;
     border-radius: 0px;
-    transition: all 150ms;
+    transition: 1s;
+    
   }
   *::-webkit-scrollbar-thumb:hover{
     background-color: #0f172a;
     border-radius: 10PX;
+
+    /*transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: 2s;*/
   }

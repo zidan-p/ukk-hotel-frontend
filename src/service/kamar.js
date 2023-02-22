@@ -34,6 +34,11 @@ const kamar = {
         const data = await instanceAxios.post("/kamar/find-available-kamar",searchIntervalDate)
         return await data.data
     },
+    /** dataCari : {intervalDate , TipeKamarId} */
+    findAvailableKamarByTipeKamar : async (dataCari) => {
+        const data = await instanceAxios.post("/kamar/find-available-kamar-by-tipe-kamar",dataCari)
+        return await data.data
+    },
     updateKamar : async (idKamar,kamarData) => {
         const data = await instanceAxios.put("/kamar/"+idKamar,kamarData);
         return await data.data
