@@ -5,7 +5,7 @@ import { formatMoneyIDN } from "@/utils/formatNumber"
 
 export default ({dataTipeKamar, onClickElement}) => {
     return(
-        <div onClick={()=>onClickElement(dataTipeKamar.id)} className="w-96 border transition hover:bg-gray-50 hover:border-white border-gray-200 rounded-sm h-full p-3 gap-3 cursor-pointer">
+        <div onClick={()=>onClickElement(dataTipeKamar.id)} className="w-96 border shadow hover:shadow-none transition hover:bg-gray-50 hover:border-white border-gray-200 rounded-sm h-full p-3 gap-3 cursor-pointer">
             <div className="flex justify-between mb-4">
                 <h1 className="text-lg font-semibold">{dataTipeKamar.namaTipeKamar}</h1>
                 <div className="rounded p-2 hover:bg-gray-300">
