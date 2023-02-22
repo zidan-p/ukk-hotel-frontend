@@ -11,14 +11,15 @@ export default forwardRef((props,ref) => {
     const [idTipeKamar, setIdTipeKamar] = useState(null);
     const [tipeKamardata, setTipeKamarData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [isError, setError] = useState(false)
     const tipeKamarDescriptionSection = useRef();
 
     const getTipeKamarData = async () => {
         if(idTipeKamar === null) return
         try {
             let data = await tipeKamar.getTipeKamar(idTipeKamar);
-            // let data = await fetch("http://localhost:3005/tipe-kamar/"+idTipeKamar);
             setTipeKamarData(data.result.getTipeKamarOne.data);
+            setIsLoading(false)
         } catch (error) {
             console.error(error);
         }
@@ -26,17 +27,14 @@ export default forwardRef((props,ref) => {
     useEffect(() => {getTipeKamarData()},[idTipeKamar])
 
     const changeIdTipeKamar = (id) => {
-        console.log("dari modal cek di parameter",id)
         setIdTipeKamar(id)
     }
     const openModal = () => {setOpen(true)}
     const closeModal = (event) => {
         setOpen(false);
+        setIsLoading(true);
+        setIdTipeKamar(null);
         tipeKamarDescriptionSection.current?.scrollTo(0, 0)
-    }
-
-    const handleSwohData = () => {
-        setIsLoading(!isLoading)
     }
 
     useImperativeHandle(ref, () => {
@@ -51,10 +49,10 @@ export default forwardRef((props,ref) => {
 
     return (
         <div className={`${open ? "" : "hidden"} fixed flex items-center z-10 top-0 h-screen max-h-screen w-full bg-[rgba(0,0,0,0.6)]`}>
-            <div className={`transition-all min-w-96 max-w-5xl mx-auto rounded h-[600px] flex flex-col bg-white p-5 grow-0 overflow-auto`}>
+            {/* <div className={`transition-all min-w-96 max-w-5xl mx-auto rounded h-[600px] flex flex-col bg-white p-5 grow-0 overflow-auto`}> */}
+            <div className={`transition-all relative ${isLoading ? "w-96" : "w-[1300px]"} mx-auto rounded h-[600px] flex flex-col bg-white p-5 grow-0 overflow-y-auto overflow-x-hidden `}>
                 <div className="flex justify-between border-b pb-3">
                     <h4 className="text-lg font-semibold">Detail Tipe kamar</h4>
-                    <button onClick={handleSwohData} className="bg-sky-200 rounded hover:bg-sky-300 px-5">text big modal</button>
                     <button onClick={closeModal} className="p-0.5 hover:bg-gray-300 rounded">
                         <Image src={"/icon/x.svg"} width={30} height={30} alt={"close"}  />
                     </button>
@@ -63,7 +61,7 @@ export default forwardRef((props,ref) => {
 
                 {isLoading
                 ?(
-                <div className="w-96 flex justify-center items-center h-full">
+                <div className=" flex justify-center items-center h-full">
                     <div className="flex gap-4 items-center">
                         <Image className="mx-auto animate-spin" src={"/icon/sun.svg"} width={30} height={30} alt={"loader icon"} />
                         <p className="text-gray-400 font-semibold">Loading...</p>
