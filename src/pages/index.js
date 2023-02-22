@@ -21,13 +21,16 @@ const adamina = Adamina({subsets : ["latin"],weight : ["400"]})
 
 export default function Home() {
   const [tipeKamarList, setTipeKamarList] = useState([]);
-  useEffect(()=>{
-    tipeKamar.getAllTipeKamar()
-    .then((val)=>{
-        setTipeKamarList(val.result.getTipeKamarList.data)
-    })
-    .catch((err) => console.log(err))
-  },[])
+
+  const getTipeKamar = async () => {
+    try {
+      let data = await tipeKamar.getAllTipeKamar();
+      setTipeKamarList(data.result.getTipeKamarList.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(()=>{getTipeKamar()},[])
 
   return (
     <>

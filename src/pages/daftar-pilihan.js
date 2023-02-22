@@ -38,10 +38,6 @@ export default function DaftarPilihan(){
 
     }
 
-    const HandleCloseModal = () => {
-        modal.current.closeModal();
-    }
-
     return (
         <>
         <section className='px-28 py-4'>
@@ -50,11 +46,6 @@ export default function DaftarPilihan(){
         <section className='px-28 mb-10'>
             <div className="">
                 <div className='justify-center flex flex-wrap items-stretch gap-3'>
-                    {tipeKamarList.map((tipeKamar,i) => {return (
-                        <div key={i} className="shrink-0 max-h-full">
-                            <TipeKamarList onClickElement={handleOpenModal} dataTipeKamar={tipeKamar}/>
-                        </div>
-                    )})}
                     {tipeKamarList.map((tipeKamar,i) => {return (
                         <div key={i} className="shrink-0 max-h-full">
                             <TipeKamarList onClickElement={handleOpenModal} dataTipeKamar={tipeKamar}/>

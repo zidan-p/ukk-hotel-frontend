@@ -11,7 +11,7 @@ const tipeKamar = {
         return await data.data;
     },
     getTipeKamarFull : async (idTipeKamar) => {
-        const data = await instanceAxios.get("/tipe-kamar/full"+idTipeKamar)
+        const data = await instanceAxios.get("/tipe-kamar/full/"+idTipeKamar)
         return await data.data;
     },
     createTipeKamar : async (formData) => {
@@ -19,11 +19,11 @@ const tipeKamar = {
         return await data.data;
     },
     updateTipeKamar : async (idTipeKamar,formData) => {
-        const data = await instanceAxios.put("/tipe-kamar"+idTipeKamar,formData)
+        const data = await instanceAxios.put("/tipe-kamar/"+idTipeKamar,formData)
         return await data.data;
     },
     deleteTipeKamar : async (idTipeKamar) => {
-        const data = await instanceAxios.delete('/tipe-kamar'+idTipeKamar)
+        const data = await instanceAxios.delete('/tipe-kamar/'+idTipeKamar)
         return await data.data;
     }
 }
