@@ -18,7 +18,7 @@ export default () => {
 
     const handleChangeForm = (event) => {
         const { name, value } = event.target;
-        setFormDataLadang((prevProps) => ({
+        setFormDataInput((prevProps) => ({
           ...prevProps,
           [name]: value
         }));
@@ -26,9 +26,9 @@ export default () => {
 
     return (
         <div className="flex flex-col gap-8 pb-3">
-            <InputForm name="namaPemesan" >Nama Pemesan</InputForm>
-            <InputForm name="emailpemesan" >Email Pemesan</InputForm>
-            <InputForm name="namaTamu">Nama Tamu</InputForm>
+            <InputForm onChange={handleChangeForm} name="namaPemesan" >Nama Pemesan</InputForm>
+            <InputForm onChange={handleChangeForm} name="emailpemesan" >Email Pemesan</InputForm>
+            <InputForm onChange={handleChangeForm} name="namaTamu">Nama Tamu</InputForm>
             <div className="flex w-full gap-3">
                 <div className="w-full">
                     <label className="text-sm font-semibold text-slate-600 mb-2 block">Tanggal Check In</label>

@@ -17,6 +17,7 @@ export default ({pemesananList,setComplete}) => {
     const [iteration, setIteration] = useState(0)
     const [activeForm, setActiveForm] = useState({});
     const [formList,setFormList] = useState([])
+    const [elementList, setElementList] = useState([]);
 
     useEffect(() => {
         setFormList(pemesananList);
@@ -25,25 +26,34 @@ export default ({pemesananList,setComplete}) => {
     useEffect(()=>{
         if(formList.length === 0) return
         setActiveForm(formList[iteration])
-        console.log(formList)
+
+        let elementListTemp = formList.map((data) => {
+            return <data.Element />
+        })
+
+        setElementList(elementListTemp);
     },[formList])
 
 
     const handleNextForm = () => {
-        if(iteration >= formList.length) return
-        setIteration(iteration + 1)
-        setActiveForm(formList[iteration])
-        setComplete(iteration);
+        if((iteration + 1) >= formList.length) return
+        let newIteration = iteration + 1;
+        setIteration(newIteration)
+        setActiveForm(formList[newIteration])
+        setComplete(newIteration);
     }
 
     const handlePrevieousForm = () => {
         if(iteration <= 0) return
-        setIteration(iteration - 1)
-        setActiveForm(formList[iteration])
+        let newIteration = iteration - 1
+        setIteration(newIteration)
+        setActiveForm(formList[newIteration])
     }
 
-    if(formList.length === 0) return <></>
+    //cara kasar untuk menghandle
 
+    if(formList.length === 0) return <></>
+    if(!activeForm) return <></>
     return (
         <div className="bg-slate-50 border border-l-8 rounded p-3 shadow border-l-slate-800">
             <section className="flex justify-between border-b pb-3">
@@ -53,11 +63,11 @@ export default ({pemesananList,setComplete}) => {
                 (<div className="flex gap-3">
                     <div onClick={handleNextForm} className="p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer">
                         <p>Selanjutnya</p>
-                        <Image className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
+                        <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
                     </div>
                 </div>)
 
-                : iteration === FORM_LIST_PEMESANAN.length ?
+                : iteration === (formList.length - 1) ?
                 (<div className="flex gap-3">
                     <div onClick={handlePrevieousForm} className="p-2 px-3 font-light flex hover hover:bg-slate-200 rounded cursor-pointer">
                         <Image src={"/icon/chevron-left.svg"} height={25} width={25} />
@@ -65,7 +75,7 @@ export default ({pemesananList,setComplete}) => {
                     </div>
                     <div onClick={handleNextForm} className="p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer">
                         <p>Selanjutnya</p>
-                        <Image className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
+                        <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
                     </div>
                 </div>)
 
@@ -77,13 +87,15 @@ export default ({pemesananList,setComplete}) => {
                     </div>
                     <div onClick={handleNextForm} className="p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer">
                         <p>Selanjutnya</p>
-                        <Image className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
+                        <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
                     </div>
                 </div>)
             }
             </section>
             <section className="mt-5 transition">
-                <activeForm.element />
+                {/* {activeForm.Element ? <activeForm.Element /> : ""} */}
+                {/* {Element ? <Element /> : ""} */}
+                {elementList ? elementList[iteration] : ""}
             </section>
         </div>
     )

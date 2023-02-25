@@ -19,12 +19,12 @@ import { useEffect, useState } from "react"
 const FORM_LIST_PEMESANAN = [
     {
         label : "Profil dan Tanggal Pemesanan",
-        element : ProfilPemesan,
+        Element : ProfilPemesan,
         complete : false
     },
     {
         label : "Kamar dan Tipe Kamar",
-        element : KamarPemesanan,
+        Element : KamarPemesanan,
         complete : false
     }
 ]
@@ -38,20 +38,21 @@ export default function PesanHotel(){
     useEffect(()=>{setFormListPemesanan(FORM_LIST_PEMESANAN)},[]);
 
     const setCompletePemesanan = (index) => {
+        console.log("index",index);
+        console.log("formList",formListPemesanan)
         let data = formListPemesanan;
-        data = formListPemesanan[index].complete = true;
+        data[index].complete = true;
         setFormListPemesanan(data);
     }
 
     if(formListPemesanan.length === 0) return <></>
-    console.log(formListPemesanan)
     return(
     <>
         <section className='px-28 py-4 border-b'>
             <h1 className={`${adamina.className} text-3xl mb-3`}>Pesan Hotel</h1>
             <p className="text-gray-600">silakan melakukan pemesanan kamar disini, harap isikan bidang yang diperlukan</p>
         </section>
-        <section className="px-28 py-4 flex flex-row-reverse gap-4" >
+        <section className="px-28 py-4 flex flex-row-reverse transition gap-4" >
             <div className="basis-1/4">
                 <TimeLineVertical pemesananList={formListPemesanan.map(dat => {return {label: dat.label, complete: dat.complete}})} />
             </div>
