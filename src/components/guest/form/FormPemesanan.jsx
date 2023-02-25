@@ -38,9 +38,9 @@ export default ({pemesananList,setComplete}) => {
     const handleNextForm = () => {
         if((iteration + 1) >= formList.length) return
         let newIteration = iteration + 1;
+        setComplete(iteration);
         setIteration(newIteration)
         setActiveForm(formList[newIteration])
-        setComplete(newIteration);
     }
 
     const handlePrevieousForm = () => {
@@ -58,39 +58,18 @@ export default ({pemesananList,setComplete}) => {
         <div className="bg-slate-50 border border-l-8 rounded p-3 shadow border-l-slate-800">
             <section className="flex justify-between border-b pb-3">
                 <h4 className="text-lg font-semibold self-center" >{activeForm.label}</h4>
-            {  
-                iteration === 0  ? 
-                (<div className="flex gap-3">
-                    <div onClick={handleNextForm} className="p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer">
-                        <p>Selanjutnya</p>
-                        <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
-                    </div>
-                </div>)
-
-                : iteration === (formList.length - 1) ?
-                (<div className="flex gap-3">
-                    <div onClick={handlePrevieousForm} className="p-2 px-3 font-light flex hover hover:bg-slate-200 rounded cursor-pointer">
+                <div className="flex gap-2">
+                    <button onClick={handlePrevieousForm} className={`${iteration > 0 ? "" : "hidden"} p-2 px-3 font-light flex hover hover:bg-slate-200 rounded cursor-pointer`}>
                         <Image src={"/icon/chevron-left.svg"} height={25} width={25} />
                         <p>Sebelumnya</p>
-                    </div>
-                    <div onClick={handleNextForm} className="p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer">
+                    </button>
+                    <button onClick={handleNextForm} className={` ${iteration < (formList.length-1) ? "" : "hidden" } p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer`}>
                         <p>Selanjutnya</p>
                         <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
-                    </div>
-                </div>)
+                    </button>
+                </div>
 
-                : 
-                (<div className="flex gap-3">
-                    <div onClick={handlePrevieousForm} className="p-2 px-3 font-light flex hover hover:bg-slate-200 rounded cursor-pointer">
-                        <Image src={"/icon/chevron-left.svg"} height={25} width={25} />
-                        <p>Sebelumnya</p>
-                    </div>
-                    <div onClick={handleNextForm} className="p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer">
-                        <p>Selanjutnya</p>
-                        <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
-                    </div>
-                </div>)
-            }
+
             </section>
             <section className="mt-5 transition">
                 {/* {activeForm.Element ? <activeForm.Element /> : ""} */}

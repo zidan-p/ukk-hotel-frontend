@@ -6,13 +6,7 @@ import { useEffect, useState } from "react"
 
 export default ({pemesananList}) => {
 
-    const [pemesananListData, setPemesananListData] = useState([]);
-
-    useEffect(()=>{
-        setPemesananListData(pemesananList)
-    },[])
-
-    if(pemesananListData.length === 0) return <></>
+    if(pemesananList.length === 0) return <></>
     return (
         <ol class=" ">
             {pemesananList.map((dat,i) => {

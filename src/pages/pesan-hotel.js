@@ -20,12 +20,14 @@ const FORM_LIST_PEMESANAN = [
     {
         label : "Profil dan Tanggal Pemesanan",
         Element : ProfilPemesan,
-        complete : false
+        complete : false,
+        data : {}
     },
     {
         label : "Kamar dan Tipe Kamar",
         Element : KamarPemesanan,
-        complete : false
+        complete : false,
+        data : {}
     }
 ]
 
@@ -42,7 +44,10 @@ export default function PesanHotel(){
         console.log("formList",formListPemesanan)
         let data = formListPemesanan;
         data[index].complete = true;
-        setFormListPemesanan(data);
+        console.log(data)
+        setFormListPemesanan((prevData) => ({
+            ...data
+        }));
     }
 
     if(formListPemesanan.length === 0) return <></>
