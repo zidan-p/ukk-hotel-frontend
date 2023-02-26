@@ -5,52 +5,111 @@ import Image from "next/image"
 
 //compoenent
 import ProfilPemesan from "./pemesananFormList/ProfilPemesan"
+import KamarPemesanan from "./pemesananFormList/KamarPemesanan"
+
+
+const FORM_LIST_PEMESANAN = [
+    {
+        label : "Profil dan Tanggal Pemesanan",
+        Element : ProfilPemesan,
+        complete : false,
+        data : {}
+    },
+    {
+        label : "Kamar dan Tipe Kamar",
+        Element : KamarPemesanan,
+        complete : false,
+        data : {}
+    }
+]
 
 
 
-
-
-
-
-export default ({pemesananList,setComplete}) => {
+export default forwardRef((props,ref) => {
 
     const [iteration, setIteration] = useState(0)
     const [activeForm, setActiveForm] = useState({});
     const [formList,setFormList] = useState([])
-    const [elementList, setElementList] = useState([]);
+    const [ElementRender, setElementRender] = useState(<></>);
+
+    const [dataSendFormTemp, setDataSendFormTemp] = useState({})
 
     useEffect(() => {
-        setFormList(pemesananList);
+        setFormList(FORM_LIST_PEMESANAN);
     },[])
 
     useEffect(()=>{
         if(formList.length === 0) return
         setActiveForm(formList[iteration])
-
-        let elementListTemp = formList.map((data) => {
-            return <data.Element />
-        })
-
-        setElementList(elementListTemp);
     },[formList])
+
+
+    useEffect(()=>{
+        if(!activeForm?.Element) return
+        setElementRender(<activeForm.Element dataSend={dataSendFormTemp} setDataParent={handleChangeFormData} />);
+    },[activeForm])
+
+    useEffect(()=>{
+        setActiveForm(formList[iteration])
+        props.changeIteration(iteration)
+    },[iteration])
+
+    // const handleChangeFormData = (state) => {
+    //     setDataSendFormTemp(state);
+    // }
+    const handleChangeFormData = (event) => {
+        const { name, value } = event.target;
+        setDataSendFormTemp((prevProps) => ({
+          ...prevProps,
+          [name]: value
+        }));
+        // setDataSendFormTemp(state);
+    }
+
+    const updateCompleteLabel = (id) => {
+        let data = [...formList];
+        data[id].complete = true;
+        setFormList(data)
+    }
+
+    // const updateForm = (data,id) => {
+    //     let data = [...formList];
+    //     data[id].data = data;
+    //     setFormList(data);
+    // }
+
+    const getLabelData = () => {
+        return formList.map(form => ({
+            label: form.label,
+            complete: form.complete
+        }))
+    }
 
 
     const handleNextForm = () => {
         if((iteration + 1) >= formList.length) return
         let newIteration = iteration + 1;
-        setComplete(iteration);
+        updateCompleteLabel(iteration)
         setIteration(newIteration)
-        setActiveForm(formList[newIteration])
+        props.onComplete();
     }
 
     const handlePrevieousForm = () => {
         if(iteration <= 0) return
         let newIteration = iteration - 1
         setIteration(newIteration)
-        setActiveForm(formList[newIteration])
     }
 
-    //cara kasar untuk menghandle
+    const getIteration = () => iteration;
+
+    
+    useImperativeHandle(ref, ()=>{
+        return {
+            getLabel : getLabelData,
+            setIteration : setIteration,
+            getIteration : getIteration
+        }
+    })
 
     if(formList.length === 0) return <></>
     if(!activeForm) return <></>
@@ -72,10 +131,12 @@ export default ({pemesananList,setComplete}) => {
 
             </section>
             <section className="mt-5 transition">
-                {/* {activeForm.Element ? <activeForm.Element /> : ""} */}
-                {/* {Element ? <Element /> : ""} */}
-                {elementList ? elementList[iteration] : ""}
+                {/* {elementList ? elementList[iteration] : ""} */}
+                {/* <elementList[iteration] /> */}
+                {/* {ElementRender ? <ElementRender /> : ""} */}
+                {ElementRender ? ElementRender : ""}
+                {/* <ElementRender /> */}
             </section>
         </div>
     )
-}
+})

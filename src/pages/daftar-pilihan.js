@@ -35,7 +35,6 @@ export default function DaftarPilihan(){
         console.log(idTipeKamar);
         modal.current.changeIdTipeKamarModal(idTipeKamar)
         modal.current.openModal();
-
     }
 
     return (
