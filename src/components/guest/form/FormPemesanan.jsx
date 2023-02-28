@@ -5,7 +5,7 @@ import Image from "next/image"
 
 //compoenent
 import ProfilPemesan from "./pemesananFormList/ProfilPemesan"
-import KamarPemesanan from "./pemesananFormList/KamarPemesanan"
+import KamarPemesanan from "./pemesananFormList/KamarPemesanan/KamarPemesanan"
 
 
 const FORM_LIST_PEMESANAN = [
@@ -57,13 +57,20 @@ export default forwardRef((props,ref) => {
     // const handleChangeFormData = (state) => {
     //     setDataSendFormTemp(state);
     // }
-    const handleChangeFormData = (event) => {
-        const { name, value } = event.target;
+    // const handleChangeFormData = (event) => {
+    //     const { name, value } = event.target;
+    //     setDataSendFormTemp((prevProps) => ({
+    //       ...prevProps,
+    //       [name]: value
+    //     }));
+    //     // setDataSendFormTemp(state);
+    // }
+
+    const handleChangeFormData = ({key, value}) => {
         setDataSendFormTemp((prevProps) => ({
-          ...prevProps,
-          [name]: value
+            ...prevProps,
+            [key]: value
         }));
-        // setDataSendFormTemp(state);
     }
 
     const updateCompleteLabel = (id) => {
