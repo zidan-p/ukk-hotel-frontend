@@ -4,24 +4,50 @@ import Image from "next/image"
 import tipeKamar from "@/service/tipeKamar"
 import { BACKEND_URL } from "@/utils/const"
 import kamar from "@/service/kamar"
+import { isObjectEmpty } from "@/utils/object"
+
 
 //component
 import TipeKamarListCard from "./TipeKamarListCard"
 import DescTipeKamarCard from "./DescTipeKamarCard"
-import kamarOption from "./kamarOption"
-import KamarOption from "./kamarOption"
+import KamarOption from "./KamarOption"
 
 export default (props) => {
     
     const [tipeKamarList, setTipeKamarList] = useState([])
-    const [availableKamarList, setAvailabelKamarList] = useState([]);
     const [tipeKamarActiveData, setTipeKamarActiveData] = useState({});
     const [sendFormData, setSendFormData] = useState({
-        kamarIdList: [],
-        tipeKamarId : null,
+        tipeKamarId : null, //ini yang active
     })
 
-    const getTipeKamar = async () => {
+    useEffect(()=>{
+        setSendFormData({
+            ...sendFormData,
+            ...props.dataSend
+        })
+        setStateTipeKamarList()
+    },[])
+
+    //!! saya tidaak tahu bagaimana caranya
+    //tapi ii adalah bagian yang berbahada
+    // saya samapi melakukan revisi setelah 2.5 jam ngoding gara2 ini
+    useEffect(() => {
+        if(sendFormData.tipeKamarId === null) return
+        setStateActiveTipeKamar();
+    },[sendFormData.tipeKamarId])
+
+
+
+
+    //change state, local anda parent
+    function changeState({key, value}){
+        setSendFormData((previous) => ({...previous,[key] : value}))
+        props.setDataParent({key : key,value : value})
+    }
+
+
+    //init function
+    async function setStateTipeKamarList(){
         try {
             let data = await tipeKamar.getAllTipeKamar();
             setTipeKamarList(data.result.getTipeKamarList.data);
@@ -30,76 +56,20 @@ export default (props) => {
         }
     }
 
-    const getTipeKamarDataAndKamar = async(id) => {
+    async function setStateActiveTipeKamar(){
         try {
-            let data = await tipeKamar.getTipeKamarFull(id)
-            console.log("data active kamar", data)
+            let data = await tipeKamar.getTipeKamarFull(sendFormData.tipeKamarId);
             setTipeKamarActiveData(data.result.getTipeKamarOne.data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    const getAvailableKamar = async() => {
-        console.log("get available kamar")
-        if(!tipeKamarActiveData?.id) return
-        try {
-
-            let data = await kamar.findAvailableKamarByTipeKamar({
-                TipeKamarId : tipeKamarActiveData.id,
-                intervalDate: {
-                    start : sendFormData.tglCheckIn,
-                    end : sendFormData.tglCheckOut
-                }
-            })
-            console.log("data available kamara", data);
-            setAvailabelKamarList(data.result.kamarList.data);
         } catch (error) {
             console.error(error);
         }
     }
 
-    useEffect(()=>{
-        getTipeKamar();
-        setSendFormData(props.dataSend);
-    },[])
-
-    useEffect(()=>{
-        (async()=>{
-            await getTipeKamarDataAndKamar(sendFormData.tipeKamarId);
-            await getAvailableKamar();
-        })()
-    },[sendFormData.tipeKamarId])
-
-    const handleSetTipeKamarId = (id) => {
-        setSendFormData((pre) => ({
-            ...pre,
-            tipeKamarId: id
-        }))
-        props.setDataParent({ key: "tipeKamarId",value : id})
+    
+    function handleSetTipeKamarId(id){
+        changeState({key: "tipeKamarId", value: id})
     }
 
-    const toggleKamar = (idKamar) => {
-        if(sendFormData.kamarIdList.some(idKamar)){
-            let otherArr = [...sendFormData.kamarIdList];
-            otherArr.push(idKamar);
-
-            setSendFormData((pre) => ({
-                ...pre,
-                kamarIdList : otherArr
-            }));
-
-            props.setDataParent({key: "kamarIdList", value: otherArr});
-            return
-        }
-        let newArr = sendFormData.kamarIdList.filter(arr => arr !== idKamar);
-        setSendFormData((pre) => ({
-            ...pre,
-            kamarIdList : newArr
-        }));
-
-        props.setDataParent({key: "kamarIdList", value: newArr});
-    }
 
     return (
         <>
@@ -126,18 +96,16 @@ export default (props) => {
                 </div>
             </div>
             <div className="basis-2/3 p-3">
-                {tipeKamarActiveData?.id
-                ? 
-                (
-                <div className="flex flex-col gap-3">
+            {
+                !isObjectEmpty(tipeKamarActiveData) 
+                ?
+                (<div className="flex flex-col gap-3">
                     <DescTipeKamarCard tipeKamarData={tipeKamarActiveData} />
-                    <KamarOption kamarList={availableKamarList} selected={sendFormData.kamarIdList} toggleKamar={toggleKamar} />
-                </div>
-                )
-                :
-                ( <p>kosong...</p>)
-                }
-                
+                    <KamarOption idTipeKamar={tipeKamarActiveData.id} dataSend={props.dataSend} setParent={props.setDataParent} />
+                </div>)
+                :  
+                (<h1>Kosong.....</h1> )
+            }
             </div>
         </div>
         </>

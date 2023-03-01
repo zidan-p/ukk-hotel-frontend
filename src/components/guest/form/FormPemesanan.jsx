@@ -126,7 +126,7 @@ export default forwardRef((props,ref) => {
                 <h4 className="text-lg font-semibold self-center" >{activeForm.label}</h4>
                 <div className="flex gap-2">
                     <button onClick={handlePrevieousForm} className={`${iteration > 0 ? "" : "hidden"} p-2 px-3 font-light flex hover hover:bg-slate-200 rounded cursor-pointer`}>
-                        <Image src={"/icon/chevron-left.svg"} height={25} width={25} />
+                        <Image alt="icon" src={"/icon/chevron-left.svg"} height={25} width={25} />
                         <p>Sebelumnya</p>
                     </button>
                     <button onClick={handleNextForm} className={` ${iteration < (formList.length-1) ? "" : "hidden" } p-2 px-3 text-slate-300 font-light flex bg-slate-900 hover:bg-slate-700 rounded cursor-pointer`}>
