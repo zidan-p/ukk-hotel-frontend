@@ -6,7 +6,7 @@ import Image from "next/image"
 //compoenent
 import ProfilPemesan from "./pemesananFormList/ProfilPemesan"
 import KamarPemesanan from "./pemesananFormList/KamarPemesanan/KamarPemesanan"
-
+import KonfimasiPemesanan from "./pemesananFormList/KonfirmasiPemesanan"
 
 const FORM_LIST_PEMESANAN = [
     {
@@ -18,6 +18,12 @@ const FORM_LIST_PEMESANAN = [
     {
         label : "Kamar dan Tipe Kamar",
         Element : KamarPemesanan,
+        complete : false,
+        data : {}
+    },
+    {
+        label : "Konfimasi",
+        Element: KonfimasiPemesanan,
         complete : false,
         data : {}
     }
@@ -46,7 +52,7 @@ export default forwardRef((props,ref) => {
 
     useEffect(()=>{
         if(!activeForm?.Element) return
-        setElementRender(<activeForm.Element dataSend={dataSendFormTemp} setDataParent={handleChangeFormData} />);
+        setElementRender(<activeForm.Element dataSend={dataSendFormTemp} getDataParent={getSendFormData} setDataParent={handleChangeFormData} />);
     },[activeForm])
 
     useEffect(()=>{
@@ -54,23 +60,15 @@ export default forwardRef((props,ref) => {
         props.changeIteration(iteration)
     },[iteration])
 
-    // const handleChangeFormData = (state) => {
-    //     setDataSendFormTemp(state);
-    // }
-    // const handleChangeFormData = (event) => {
-    //     const { name, value } = event.target;
-    //     setDataSendFormTemp((prevProps) => ({
-    //       ...prevProps,
-    //       [name]: value
-    //     }));
-    //     // setDataSendFormTemp(state);
-    // }
-
     const handleChangeFormData = ({key, value}) => {
         setDataSendFormTemp((prevProps) => ({
             ...prevProps,
             [key]: value
         }));
+    }
+
+    const getSendFormData = (key) => {
+        return dataSendFormTemp?.key || "";
     }
 
     const updateCompleteLabel = (id) => {
@@ -137,7 +135,7 @@ export default forwardRef((props,ref) => {
 
 
             </section>
-            <section className="mt-5 transition">
+            <section className="mt-3 transition">
                 {/* {elementList ? elementList[iteration] : ""} */}
                 {/* <elementList[iteration] /> */}
                 {/* {ElementRender ? <ElementRender /> : ""} */}

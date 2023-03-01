@@ -65,7 +65,7 @@ export default (props) => {
         }
     }
 
-    
+
     function handleSetTipeKamarId(id){
         changeState({key: "tipeKamarId", value: id})
     }

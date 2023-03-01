@@ -9,13 +9,17 @@ import kamar from "@/service/kamar"
 
 export default ({idTipeKamar, dataSend, setParent}) => {
     const [kamarList, setKamarList] = useState([]);
-    const [selected, setSelected] = useState([]);
     const [sendFormData, setSendFormData] = useState({
         kamarIdList: [],
     })
-
     console.log("render kamar option")
 
+
+    //perlu diingat ada bug yang perlu diperbaiki
+    //setiap elemen ini dirender ulang state untuk kamar list id masih tetap ada
+    //awalnya akan diperbaiki dengan melkukan reset value ulang setiap pergantian tipekamar
+    //tetapi hal tersebut juga akan menyebabkan resetnya nilai ketika bergantian step form
+    //masih belum ditemukan solusinya
     useEffect(()=>{
         setSendFormData({
             ...sendFormData,
@@ -80,7 +84,6 @@ export default ({idTipeKamar, dataSend, setParent}) => {
 
     async function setSelectedKamar(index){
         let data = kamarList
-        console.log(isSelected(data[index].id, sendFormData.kamarIdList))
         if(isSelected(data[index].id, sendFormData.kamarIdList)){
             data[index].selected = false
             removeKamarListId(data[index].id);
