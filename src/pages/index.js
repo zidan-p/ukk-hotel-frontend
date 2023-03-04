@@ -43,7 +43,7 @@ export default function Home() {
           style={{
               backgroundImage :`url("/images/vektor_bintang.png")`
           }}
-          className="h-screen bg-slate-800 flex px-28 text-white">
+          className="pt-7 bg-slate-800 flex px-28 text-white">
             <div className="basis-1/2 self-center">
                 <div className={adamina.className}>
                     <h1 className="text-5xl mb-1 text-yellow-400">

@@ -83,7 +83,7 @@ PesanHotel.getLayout = function getLayout(page) {
  * NOTE
  * 
  * saya bermasalah bila mendefinisikan semua komponen langsung pda halaman ini.
- * masalahnya terdapat pada reder untuk child component, yaitu timeline.
+ * masalahnya terdapat pada render untuk child component, yaitu timeline.
  * timeline untuk page ini tidak mau terender walau satate di page ini terupdate.
  * props yg dikirim ke child merupakan state page ini
  * setelah dicari-cari ternyata hal itu karena props yang dikirm masih berupa object

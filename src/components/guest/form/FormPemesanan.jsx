@@ -2,6 +2,7 @@
 
 import { useRef,useState,useEffect,forwardRef,useImperativeHandle } from "react"
 import Image from "next/image"
+import pemesanan from "@/service/pemesanan"
 
 //compoenent
 import ProfilPemesan from "./pemesananFormList/ProfilPemesan"
@@ -37,8 +38,10 @@ export default forwardRef((props,ref) => {
     const [activeForm, setActiveForm] = useState({});
     const [formList,setFormList] = useState([])
     const [ElementRender, setElementRender] = useState(<></>);
-
     const [dataSendFormTemp, setDataSendFormTemp] = useState({})
+
+    const [isOrdered, setIsOrdered] = useState(false);
+    const [orderedData, setOrderedData] = useState({});
 
     useEffect(() => {
         setFormList(FORM_LIST_PEMESANAN);
@@ -77,12 +80,6 @@ export default forwardRef((props,ref) => {
         setFormList(data)
     }
 
-    // const updateForm = (data,id) => {
-    //     let data = [...formList];
-    //     data[id].data = data;
-    //     setFormList(data);
-    // }
-
     const getLabelData = () => {
         return formList.map(form => ({
             label: form.label,
@@ -107,7 +104,17 @@ export default forwardRef((props,ref) => {
 
     const getIteration = () => iteration;
 
-    
+    const handleCreateOrder = async() => {
+        try {
+            let data = await pemesanan.createPemesanan(dataSendFormTemp);
+            setIsOrdered(true);
+            setOrderedData(data.result.pemesananOne);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     useImperativeHandle(ref, ()=>{
         return {
             getLabel : getLabelData,
@@ -118,6 +125,9 @@ export default forwardRef((props,ref) => {
 
     if(formList.length === 0) return <></>
     if(!activeForm) return <></>
+    if(isOrdered) return(
+        <h1>selamat pemesanan anda sudah diproses</h1>
+    )
     return (
         <div className="bg-slate-50 border border-l-8 rounded p-3 shadow border-l-slate-800">
             <section className="flex justify-between border-b pb-3">
@@ -131,16 +141,15 @@ export default forwardRef((props,ref) => {
                         <p>Selanjutnya</p>
                         <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
                     </button>
+                    <button onClick={handleCreateOrder} className={` ${iteration < (formList.length-1) ? "hidden" : "" } p-2 px-3 text-green-100 font-light flex bg-green-800 hover:bg-green-700 rounded cursor-pointer`}>
+                        <p>Buat Pesanan</p>
+                    </button>
                 </div>
 
 
             </section>
             <section className="mt-3 transition">
-                {/* {elementList ? elementList[iteration] : ""} */}
-                {/* <elementList[iteration] /> */}
-                {/* {ElementRender ? <ElementRender /> : ""} */}
                 {ElementRender ? ElementRender : ""}
-                {/* <ElementRender /> */}
             </section>
         </div>
     )
