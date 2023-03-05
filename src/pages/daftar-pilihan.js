@@ -39,8 +39,9 @@ export default function DaftarPilihan(){
 
     return (
         <>
-        <section className='px-28 py-4'>
-            <h1 className={`${adamina.className} text-3xl mb-4`}>Daftar Tipe Kamar</h1>
+        <section className='px-28 py-4 border-b mb-5'>
+            <h1 className={`${adamina.className} text-3xl mb-2`}>Daftar Tipe Kamar</h1>
+            <p className='text-gray-500' >berikut daftar tipe kaar yang kami sediakan</p>
         </section>
         <section className='px-28 mb-10'>
             <div className="">

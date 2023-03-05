@@ -3,11 +3,14 @@
 import { useRef,useState,useEffect,forwardRef,useImperativeHandle } from "react"
 import Image from "next/image"
 import pemesanan from "@/service/pemesanan"
+import { formatISO, startOfDay } from "date-fns"
 
 //compoenent
 import ProfilPemesan from "./pemesananFormList/ProfilPemesan"
 import KamarPemesanan from "./pemesananFormList/KamarPemesanan/KamarPemesanan"
 import KonfimasiPemesanan from "./pemesananFormList/KonfirmasiPemesanan"
+import PemesananSuccess from "./PemesananSuccess"
+import SunIcon from "@/components/icons/SunIcon"
 
 const FORM_LIST_PEMESANAN = [
     {
@@ -40,8 +43,7 @@ export default forwardRef((props,ref) => {
     const [ElementRender, setElementRender] = useState(<></>);
     const [dataSendFormTemp, setDataSendFormTemp] = useState({})
 
-    const [isOrdered, setIsOrdered] = useState(false);
-    const [orderedData, setOrderedData] = useState({});
+    const [isLoadingOrder, setIsLoadingOrder] = useState(false);
 
     useEffect(() => {
         setFormList(FORM_LIST_PEMESANAN);
@@ -105,13 +107,17 @@ export default forwardRef((props,ref) => {
     const getIteration = () => iteration;
 
     const handleCreateOrder = async() => {
-        try {
-            let data = await pemesanan.createPemesanan(dataSendFormTemp);
-            setIsOrdered(true);
-            setOrderedData(data.result.pemesananOne);
-        } catch (error) {
-            console.error(error);
-        }
+        // try {
+        //     let data = await pemesanan.createPemesanan(dataSendFormTemp);
+        //     setIsOrdered(true);
+        //     setOrderedData(data.result.pemesananOne);
+        // } catch (error) {
+        //     console.error(error);
+        // }
+        let send = dataSendFormTemp;
+        send.tglPemesanan = formatISO(startOfDay(new Date()), {representation: "date"})
+        props.sendPemesananData(dataSendFormTemp);
+        setIsLoadingOrder(true);
     }
 
 
@@ -125,9 +131,6 @@ export default forwardRef((props,ref) => {
 
     if(formList.length === 0) return <></>
     if(!activeForm) return <></>
-    if(isOrdered) return(
-        <h1>selamat pemesanan anda sudah diproses</h1>
-    )
     return (
         <div className="bg-slate-50 border border-l-8 rounded p-3 shadow border-l-slate-800">
             <section className="flex justify-between border-b pb-3">
@@ -141,7 +144,11 @@ export default forwardRef((props,ref) => {
                         <p>Selanjutnya</p>
                         <Image alt="icon" className="fill-white text-white stroke-white" src={"/icon/white/chevron-right.svg"} height={25} width={25} />
                     </button>
-                    <button onClick={handleCreateOrder} className={` ${iteration < (formList.length-1) ? "hidden" : "" } p-2 px-3 text-green-100 font-light flex bg-green-800 hover:bg-green-700 rounded cursor-pointer`}>
+                    <button onClick={handleCreateOrder} className={` ${iteration < (formList.length-1) ? "hidden" : "" } flex gap-2 p-2 px-3 text-green-100 font-light flex bg-green-800 hover:bg-green-700 rounded cursor-pointer`}>
+                        {isLoadingOrder 
+                        ? <SunIcon className={"animate-spin"} />
+                        : ""
+                        }
                         <p>Buat Pesanan</p>
                     </button>
                 </div>

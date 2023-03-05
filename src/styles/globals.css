@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 *::-webkit-scrollbar-track{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: transparent;
-    border-radius: 10px;
-    border: 3px solid white;
-  }
-  *::-webkit-scrollbar{
-    width: 6px;
-    height: 4px;
-  }
-  *::-webkit-scrollbar-thumb{
-    width: 4px;
-    height: 4px;
-    background-color: #1e293b;
-    border-radius: 0px;
-    transition: 1s;
-    
-  }
-  *::-webkit-scrollbar-thumb:hover{
-    background-color: #0f172a;
-    border-radius: 10PX;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: transparent;
+  border-radius: 10px;
+  border: 3px solid white;
+}
+*::-webkit-scrollbar{
+  width: 6px;
+  height: 4px;
+}
+*::-webkit-scrollbar-thumb{
+  width: 4px;
+  height: 4px;
+  background-color: #1e293b;
+  border-radius: 0px;
+  transition: 1s;
+  
+}
+*::-webkit-scrollbar-thumb:hover{
+  background-color: #0f172a;
+  border-radius: 10PX;
 
-    /*transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    transition-duration: 2s;*/
-  }
+  /*transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 2s;*/
+}

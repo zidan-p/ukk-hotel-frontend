@@ -63,14 +63,9 @@ export default ({idTipeKamar}) => {
                     
                     availableKamar.map((kam) => {
                         return (
-                            <>
-                            <div className="text-sm text-gray-500 cursor-not-allowed px-6 py-1 border rounded">
+                            <div key={kam.id} className={`text-sm ${kam.isAvailable ? "cursor-pointer hover:bg-gray-300" : "text-gray-500 cursor-not-allowed"} px-6 py-1 border rounded`}>
                                 {kam.nama}
                             </div>
-                            <div className="text-sm cursor-pointer px-6 py-1 border rounded hover:bg-gray-300">
-                                {kam.nama}
-                            </div>
-                            </>
                         )
                     })
                     }

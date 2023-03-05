@@ -17,7 +17,7 @@ const formSchema = Joi.object({
     namaPemesan : Joi.string().required(),
     emailPemesan : Joi.string().email({ tlds: { allow: false } }).required(),
     namaTamu : Joi.string().required(),
-    tipeKamarId : Joi.required(),
+    TipeKamarId : Joi.required(),
     kamarIdList: Joi.array().required()
 })
 
@@ -65,7 +65,7 @@ export default ({dataSend}) => {
 
     async function setStateTipeKamar(){
         try {
-            let data = await tipeKamar.getTipeKamarFull(dataSend.tipeKamarId);
+            let data = await tipeKamar.getTipeKamarFull(dataSend.TipeKamarId);
             setTipeKamarData(data.result.getTipeKamarOne.data);
         } catch (error) {
             console.error(error);
@@ -139,10 +139,10 @@ export default ({dataSend}) => {
         banyakKamarDipilih : dataKamar.length,
         hariMenginap : intervalToDuration({start : new Date(dataSendState.tglCheckIn), end : new Date(dataSendState.tglCheckOut)}).days,
         namaPemesan : dataSendState.namaPemesan,
-        emailPemesan : dataSendState.EmailPemesan,
-        namaTamu: dataSendState.NamaTamu,
-        tglCheckIn : dataSendState.TglCheckIn,
-        tglCheckOut : dataSendState.TglCheckOut,
+        emailPemesan : dataSendState.emailPemesan,
+        namaTamu: dataSendState.namaTamu,
+        tglCheckIn : dataSendState.tglCheckIn,
+        tglCheckOut : dataSendState.tglCheckOut,
     }
 
 

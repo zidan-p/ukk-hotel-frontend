@@ -17,7 +17,7 @@ export default (props) => {
     const [tipeKamarList, setTipeKamarList] = useState([])
     const [tipeKamarActiveData, setTipeKamarActiveData] = useState({});
     const [sendFormData, setSendFormData] = useState({
-        tipeKamarId : null, //ini yang active
+        TipeKamarId : null, //ini yang active
     })
 
     useEffect(()=>{
@@ -32,9 +32,9 @@ export default (props) => {
     //tapi ii adalah bagian yang berbahada
     // saya samapi melakukan revisi setelah 2.5 jam ngoding gara2 ini
     useEffect(() => {
-        if(sendFormData.tipeKamarId === null) return
+        if(sendFormData.TipeKamarId === null) return
         setStateActiveTipeKamar();
-    },[sendFormData.tipeKamarId])
+    },[sendFormData.TipeKamarId])
 
 
 
@@ -58,7 +58,7 @@ export default (props) => {
 
     async function setStateActiveTipeKamar(){
         try {
-            let data = await tipeKamar.getTipeKamarFull(sendFormData.tipeKamarId);
+            let data = await tipeKamar.getTipeKamarFull(sendFormData.TipeKamarId);
             setTipeKamarActiveData(data.result.getTipeKamarOne.data)
         } catch (error) {
             console.error(error);
@@ -67,10 +67,8 @@ export default (props) => {
 
 
     function handleSetTipeKamarId(id){
-        changeState({key: "tipeKamarId", value: id})
+        changeState({key: "TipeKamarId", value: id})
     }
-
-
     return (
         <>
         <div className="flex divide-x h-96">
@@ -87,7 +85,7 @@ export default (props) => {
                                     harga={tipeKamarElement.harga} 
                                     image={BACKEND_URL+"/file/image/"+tipeKamarElement.foto} 
                                     name={tipeKamarElement.namaTipeKamar} 
-                                    active={sendFormData.tipeKamarId === tipeKamarElement.id ? true : false}
+                                    active={sendFormData.TipeKamarId === tipeKamarElement.id ? true : false}
                                 />
                             </label>
                         </div>
@@ -104,7 +102,9 @@ export default (props) => {
                     <KamarOption idTipeKamar={tipeKamarActiveData.id} dataSend={props.dataSend} setParent={props.setDataParent} />
                 </div>)
                 :  
-                (<h1>Kosong.....</h1> )
+                (
+                <h1 className="text-center font-semibold text-gray-700">silahkan memilih tipe kamar</h1> 
+                )
             }
             </div>
         </div>

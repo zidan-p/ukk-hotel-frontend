@@ -6,6 +6,10 @@ const pemesanan = {
     getAllPemesaanFull : [],
     getpemesanan: [],
     getpemesananFull: [],
+    getPemesananByNomorPemesanan : async (nomorPemesanan) => {
+        const data = await instanceAxios.post("/pemesaanan/nomor-pemesanan"+nomorPemesanan);
+        return await data.data;
+    },
     createPemesanan : async (params) => {
         const data = await instanceAxios.post("/pemesanan/transaction/", params);
         return await data.data;
