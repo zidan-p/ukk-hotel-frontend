@@ -18,11 +18,13 @@ export default ({children}) => {
     return (
         <>
         <div className={`${roboto.variable}`}>
-            <NavbarHeader />
-            <div className="min-h-screen">
-            {children}
+            <div className="min-h-screen flex flex-col">
+                <NavbarHeader />
+                <div className="flex-grow">
+                    {children}
+                </div>
+                <FooterGuest />
             </div>
-            <FooterGuest />
         </div>
         </>
     )

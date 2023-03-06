@@ -7,7 +7,7 @@ const pemesanan = {
     getpemesanan: [],
     getpemesananFull: [],
     getPemesananByNomorPemesanan : async (nomorPemesanan) => {
-        const data = await instanceAxios.post("/pemesaanan/nomor-pemesanan"+nomorPemesanan);
+        const data = await instanceAxios.get("/pemesanan/nomor-pemesanan/"+nomorPemesanan);
         return await data.data;
     },
     createPemesanan : async (params) => {

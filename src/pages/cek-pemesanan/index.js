@@ -36,7 +36,7 @@ export default function CekPemesanan(){
           className="
               w-4/6 py-1 px-5 border bg-slate-100 rounded outline-none 
               focus-within:bg-white transition-all
-              group-focus-within:outline group-focus-within:outline-slate-500 focus-within:shadow-slate-400
+              group-focus-within:border group-focus-within:border-slate-500 focus-within:shadow-slate-400
           " 
           type="text" 
           placeholder="########-####" 

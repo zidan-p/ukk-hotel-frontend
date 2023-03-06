@@ -18,8 +18,10 @@ const instanceAxios = axios.create(defaultOptions);
 
 // Set the AUTH token for any request
 instanceAxios.interceptors.request.use(function (config) {
-    const token = localStorage.getItem('token');
-    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    }
     return config
 })
 
