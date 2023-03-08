@@ -7,6 +7,7 @@ import Marquee from "react-marquee-slider";
 import HotelIlustration from '@/components/guest/hero/ilustration/HotelIlustration'
 import KamarImage from '@/components/guest/section_main_page/KamarImage'
 import PersonComment from '@/components/guest/section_main_page/PersonComment'
+import TipeKamarListCard from '@/components/guest/tipeKamarList/TipeKamarListCard';
 
 //feature
 import tipeKamar from '@/service/tipeKamar'
@@ -47,33 +48,27 @@ export default function Home() {
             <div className="basis-1/2 self-center">
                 <div className={adamina.className}>
                     <h1 className="text-5xl mb-1 text-yellow-400">
-                        Selalu datang dengan nyaman
+                        Nikmati 1001 layanan dari kami
                     </h1>
                 </div>
-                <p className="mb-2">Nikmati berragam layanan kami dengan berbagai pilihan selama yang anda mau</p>
-                <button className="transition rounded-sm bg-[rgb(250,204,21,.2)] border border-yellow-600 px-6 py-2 hover:bg-yellow-500">
+                <p className="mb-5">Nikmati berragam layanan kami dengan berbagai pilihan selama yang anda mau</p>
+                <Link href={"/pesan-hotel"} className="transition rounded-sm bg-[rgb(250,204,21,.2)] border border-yellow-600 px-6 py-2 hover:bg-yellow-500">
                     Pesan Sekarang
-                </button>
+                </Link>
             </div>
             <div className="basis-1/2 self-end">
-                <HotelIlustration />
+                <HotelIlustration className={"mx-auto pt-32"} />
             </div>
         </section>
 
         <section className='min-h-[100px] px-28 py-10'>
-          <div className="flex divide-x">
-            <div className="px-5">
-              <h3 className="text-4xl font-bold">50</h3>
-              <p>Kamar Tersedia</p>
-            </div>
-            <div className="px-5">
-              <h3 className="text-4xl font-bold">50</h3>
-              <p>Pilihan tipe kamar</p>
-            </div>
-            <div className="px-5">
-              <h3 className="text-4xl font-bold">50</h3>
-              <p>Pemesanan setiap minggunany</p>
-            </div>
+          <h2 className={`${adamina.className} text-3xl mb-8`}>Beragam jenis kamar tersedia di Hotel kami</h2>
+          <div className="flex gap-4 justify-center">
+            {
+            tipeKamarList.slice(0,3).map((tipeKamar, index) => (
+              <TipeKamarListCard key={index} tipeKamar={tipeKamar} />
+            ))
+            }
           </div>
         </section>
 

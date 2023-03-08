@@ -19,7 +19,7 @@ export default (props)=>{
     const router = useRouter();
 
     return(
-        <nav className="font-sans  inset-x-0  text-white flex justify-between py-2 px-28 bg-slate-800">
+        <nav className="font-sans inset-x-0  text-white flex justify-between items-center py-2 px-28 bg-slate-800">
             <h4 className="font-semibold">
                 <Link href="/">Wikusama Hotel</Link>
             </h4>
