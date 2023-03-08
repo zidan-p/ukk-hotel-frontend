@@ -1,4 +1,4 @@
-import Header from '@/components/admin/header/header';
+import Header from '@/components/admin/header/Header';
 import Sidebar from '@/components/admin/sidebar/Sidebar';
 import SideContainer from '@/components/admin/container/SideContainer';
 
@@ -45,7 +45,7 @@ export default function MainAdminLayout({children}){
     return (
         <div className={`${roboto.variable} font-sans max-h-screen h-screen w-full flex`}>
             <Sidebar className={"basis-1/6 py-2 shrink-0"} />
-            <SideContainer className={`grow shrink overflow-auto`}>
+            <SideContainer className={`grow shrink overflow-auto shadow`}>
                 <Header/>
                 {children}
             </SideContainer>
