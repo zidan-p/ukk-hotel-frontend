@@ -1,3 +1,4 @@
+import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon";
 import ChevronRightIcon from "@/components/icons/ChevronRightIcon";
 import { usePagination } from "@/hooks/usePagination";
 import classNames from "classnames";
@@ -34,7 +35,7 @@ function Pagination({
     let lastPage = paginationRange[paginationRange.length - 1];
     return (
       <ul
-        className={classNames('flex cursor-pointer text-gray-600 bg-slate-100 rounded', { [className]: className })}
+        className={classNames('flex select-none cursor-pointer text-gray-600 bg-slate-100 rounded', { [className]: className })}
       >
         <li
           className={classNames('p-2 px-3 hover:bg-slate-200', {
@@ -42,7 +43,7 @@ function Pagination({
           })}
           onClick={onPrevious}
         >
-          <div className="arrow left" />
+          <ChevronLeftIcon />
         </li>
         {paginationRange.map(pageNumber => {
           if (pageNumber === "...") {
