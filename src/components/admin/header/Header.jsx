@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react"
 import Tippy from "@tippyjs/react";
 import LogoutIcon from "@/components/icons/LogoutIcon";
+import { useRouter } from "next/router";
 
 // import 'tippy.js/dist/tippy.css'; // optional
 
@@ -14,6 +15,7 @@ import LogoutIcon from "@/components/icons/LogoutIcon";
 export default function Header(){
 
     const [userData, setUserData] = useState({});
+    const router = useRouter();
 
     useEffect(()=>{setData()},[])
 
@@ -26,6 +28,20 @@ export default function Header(){
         }
     }
 
+    let judul;
+
+    switch (router.pathname) {
+        case "/admin":
+            judul = "Dashboard Utama"
+            break;
+        case "/admin/pemesanan" :
+            judul = "Daftar Pemesanan"
+            break
+        default:
+            break;
+    }
+
+
     if(isObjectEmpty(userData))return (
         <header className="bg-slate-300 animate-pulse">Loading...</header>
     )
@@ -33,7 +49,7 @@ export default function Header(){
     return (
         <header className="py-2 px-8">
             <div className="flex justify-between relative items-center">
-                <h1 className="font-semibold text-xl">Ini judul halaman</h1>
+                <h1 className="font-semibold text-xl">{judul}</h1>
                 <Tippy 
                     content={(
                         <div className="font-sans bg-white shadow-md rounded  break-words w-[300px]">

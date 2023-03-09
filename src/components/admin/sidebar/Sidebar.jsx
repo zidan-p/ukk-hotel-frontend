@@ -2,13 +2,15 @@
 
 
 import DashboardIcon from "@/components/icons/DashboardIcon"
+import PemesaanIcon from "@/components/icons/PemesaanIcon"
 import { Adamina } from "@next/font/google"
 import Link from "next/link"
+import { useRouter } from "next/router"
 const adamina = Adamina({subsets : ["latin"],weight : ["400"]})
 
 
 export default function Sidebar({className}){
-
+    const router = useRouter();
 
     return (
         <nav className={`${className} bg-slate-800 text-white`}>
@@ -20,15 +22,25 @@ export default function Sidebar({className}){
             </div>
             <ul className="flex flex-col">
                 <li>
-                    <Link href={"/admin"} className="text-slate-500 transition py-4 px-5 hover:bg-slate-700 flex gap-2">
+                    <Link 
+                    href={"/admin"} 
+                    className={`
+                    ${router.pathname == "/admin" ? "bg-slate-700" : "text-slate-500"}
+                     transition py-4 px-5 hover:bg-slate-700 flex gap-2
+                    `}>
                         <DashboardIcon classname={"w-5"} />
                         Dashboard
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/admin"} className="bg-slate-700 transition py-4 px-5 hover:bg-slate-700 flex gap-2">
-                        <DashboardIcon classname={"w-5"} />
-                        Dashboard
+                    <Link 
+                    href={"/admin/pemesanan"} 
+                    className={`
+                    ${router.pathname.includes("/admin/pemesanan") ? "bg-slate-700" : "text-slate-500"}
+                     transition py-4 px-5 hover:bg-slate-700 flex gap-2
+                    `}>
+                        <PemesaanIcon classname={"w-5"} />
+                        Pemesanan
                     </Link>
                 </li>
             </ul>
