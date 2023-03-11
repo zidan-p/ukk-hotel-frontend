@@ -52,8 +52,8 @@ function Pagination({
   
           return (
             <li
-              className={classNames('p-2 px-3 hover:bg-slate-200', {
-                "text-blue-800": pageNumber === currentPage
+              className={classNames('p-2 px-3 hover:bg-slate-200 border-b-2', {
+                "border-b-blue-800": pageNumber === currentPage
               })}
               onClick={() => onPageChange(pageNumber)}
             >
