@@ -7,7 +7,7 @@ import classNames from "classnames";
 function Pagination({
     onPageChange,
     totalCount,
-    siblingCount = 1,
+    siblingCount = 1, 
     currentPage,
     pageSize,
     className

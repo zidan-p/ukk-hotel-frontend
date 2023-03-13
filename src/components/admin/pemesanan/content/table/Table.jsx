@@ -1,4 +1,6 @@
 
+import MoneyIcon from "@/components/icons/MoneyIcon"
+
 
 function Table({children}){
 

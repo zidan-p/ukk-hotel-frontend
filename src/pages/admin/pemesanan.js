@@ -1,11 +1,13 @@
-import Pagination from "@/components/admin/pagination/Pagination"
-import MoneyIcon from "@/components/icons/MoneyIcon"
 import MainAdminLayout from "@/layouts/MainAdminLayout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 //component
 import FilterTool from "@/components/admin/pemesanan/filterTool/FilterTool"
+import PemesananContent from "@/components/admin/pemesanan/content/Content"
+import pemesanan from "@/service/pemesanan"
+import SunIcon from "@/components/icons/SunIcon"
+import SideModal from "@/components/admin/pemesanan/sideModal/SideModal"
 
 
 
@@ -23,114 +25,72 @@ function AdminPemesanan(){
         keyword: "",
         status: "all" 
     })
+    const [loading, setLoading] = useState(true);
+    const [pageData, setPageData] = useState({});
 
+    useEffect(()=>{  setData()  },[])
+
+
+    async function setData(){
+        try {
+            const data = await pemesanan.getPemesananFilter(filterParams);
+            setPageData(data);
+            setLoading(false);
+        } catch (error) {
+            setPageData(error);
+        }
+    }
+
+    async function onFilterChange(filterName, value){
+        setFilterParams((prev)=>({
+            ...prev,
+            [filterName] : value
+        }))
+        setData();
+    }
+
+    async function onPageChange(pageNum){
+        setFilterParams((prev)=>({
+            ...prev,
+            "page": pageNum
+        }))
+        setData();
+    }
+
+    async function onStatusChange(status){
+        try {
+            const result = pemesanan.updateStatusPemesanan(status);
+            setData();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
-        <div className="bg-slate-100 h-screen px-3 py-2">
-            <FilterTool />
-            <section className="bg-white">
-                <div className="p-2 flex">
-                    <Pagination totalCount={10} currentPage={5} pageSize />
+        <div className={`transition bg-slate-100 h-screen px-3 py-2  ${loading ? "opacity-0" : ""}`}>
+            {loading 
+            ? (
+                <div className="max-w-lg bg-slate-700 rounded p-4 mx-auto flex gap-2">
+                    <SunIcon className={"animate-spin"} />
+                    <span>
+                    Loading
+                    </span>
                 </div>
-                <div className="p-2">
-                    <table className="w-full table-auto">
-                        <thead className="text-xs font-semibold text-gray-500">
-                            <tr className=" justify-between grow divide-x border-y">
-                                <th className=" py-2 px-3 gap-1">
-                                    <div className="flex">
-                                    Nama Pemesan
-                                    </div>
-                                </th>
-                                <th className=" py-2 px-3 gap-1">
-                                    <div className="flex">
-                                        Status
-                                    </div>
-                                </th>
-                                <th className=" py-2 px-3 gap-1">
-                                    <div className="flex">
-                                    Tanggal Check In
-                                    </div>
-                                </th>
-                                <th className=" py-2 px-3 gap-1">
-                                    <div className="flex">
-                                        Tanggal Check Out
-                                    </div>
-                                </th>
-                                <th className=" py-2 px-3 gap-1">
-                                    <div className="flex gap-2">
-                                        <MoneyIcon className={"w-4"} />
-                                        Total
-                                    </div>
-                                </th>
-                                <th className=" py-2 px-3 gap-1">
-                                    <div className="flex">
-                                    Action
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-sm divide-y">
-                            <tr className="transition hover:bg-slate-50">
-                                <td className="px-2 py-1.5 font-semibold ">Zidan Putra Rahman</td>
-                                <td className="px-2 py-1.5">
-                                    <p className="divide-x justify-between bg-yellow-100 font-semibold rounded flex text-yellow-700 px-3 py-1.5">
-                                        Baru
-                                        <button className="transition text-yellow-700 opacity-40 hover:opacity-100">
-                                            accept
-                                        </button>
-                                    </p>
-                                </td>
-                                <td className="px-2 py-1.5 text-gray-500">12 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500">15 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500 font-semibold">Rp. 15.000.000</td>
-                                <td className="px-2 py-1.5">action</td>
-                            </tr>
-                            <tr className="transition hover:bg-slate-50">
-                                <td className="px-2 py-1.5 font-semibold ">Zidan Putra Rahman</td>
-                                <td className="px-2 py-1.5">
-                                    <p className="divide-x justify-between bg-green-100 font-semibold rounded flex text-green-700 px-3 py-1.5">
-                                        Diterima
-                                        <button className="transition text-green-700 opacity-40 hover:opacity-100">
-                                            Check In
-                                        </button>
-                                    </p>
-                                </td>
-                                <td className="px-2 py-1.5 text-gray-500">12 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500">15 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500 font-semibold">Rp. 15.000.000</td>
-                                <td className="px-2 py-1.5">action</td>
-                            </tr>
-                            <tr className="transition hover:bg-slate-50">
-                                <td className="px-2 py-1.5 font-semibold ">Zidan Putra Rahman</td>
-                                <td className="px-2 py-1.5">
-                                    <p className="divide-x justify-between bg-slate-100 font-semibold rounded flex text-slate-700 px-3 py-1.5">
-                                        Check In
-                                        <button className="transition text-slate-700 opacity-40 hover:opacity-100">
-                                            Check Out
-                                        </button>
-                                    </p>
-                                </td>
-                                <td className="px-2 py-1.5 text-gray-500">12 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500">15 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500 font-semibold">Rp. 15.000.000</td>
-                                <td className="px-2 py-1.5">action</td>
-                            </tr>
-                            <tr className="transition hover:bg-slate-50">
-                                <td className="px-2 py-1.5 font-semibold ">Zidan Putra Rahman</td>
-                                <td className="px-2 py-1.5">
-                                    <p className="divide-x justify-between bg-gray-100 font-semibold rounded flex text-gray-700 px-3 py-1.5">
-                                        Check Out
-                                    </p>
-                                </td>
-                                <td className="px-2 py-1.5 text-gray-500">12 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500">15 - maret - 2023</td>
-                                <td className="px-2 py-1.5 text-gray-500 font-semibold">Rp. 15.000.000</td>
-                                <td className="px-2 py-1.5">action</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+            ):(
+                <>
+                <SideModal />
+                <FilterTool filterParams={filterParams} onFilterChange={onFilterChange} onFind={setData} />
+                {pageData.result.getPemesananList.count !== 0
+                ?<PemesananContent contentData={pageData.result.getPemesananList} handleNextStatus={onStatusChange}  onPageChange={onPageChange} />
+
+                :(
+                    <div className="w-full bg-white p-3 font-semibold text-gray-400 text-center">
+                        maaf data tidak tersedia
+                    </div>
+                )}
+                
+                </>
+            )}
         </div>
     )
 }

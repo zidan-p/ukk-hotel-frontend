@@ -83,52 +83,52 @@ function DetailPemesanan({detailData}){
                     </Tippy>
                 </div>
                 <section className="border-b py-2 my-2 flex">
-                <Image className="basis-2/6" src={IMAGE_SOURCE_URL + detailData.DetailPemesanan.TipeKamarPemesanan.foto} height={200} width={200} alt={"gambar"}/>
-                <div className="basis-4/6 w-full flex justify-between self-start border-b">
-                    <div className="">
-                        <h5 className="text-xl font-bold">{detailData.DetailPemesanan.TipeKamarPemesanan.namaTipeKamar}</h5>
-                        <h5 className="font-medium">Rp. {detailData.DetailPemesanan.TipeKamarPemesanan.harga} / <span className="text-gray-500">malam</span> </h5>
+                    <Image className="basis-2/6" src={IMAGE_SOURCE_URL + detailData.DetailPemesanan.TipeKamarPemesanan.foto} height={200} width={200} alt={"gambar"}/>
+                    <div className="basis-4/6 w-full flex justify-between self-start border-b">
+                        <div className="">
+                            <h5 className="text-xl font-bold">{detailData.DetailPemesanan.TipeKamarPemesanan.namaTipeKamar}</h5>
+                            <h5 className="font-medium">Rp. {detailData.DetailPemesanan.TipeKamarPemesanan.harga} / <span className="text-gray-500">malam</span> </h5>
+                        </div>
+                        <div className="justify-between px-6 border-b-2 border-slate-500 pb-3">
+                            <h5 className="text-slate-800 text-xl font-bold" ><span className="text-sm text-gray-500">Jumlah total</span> Rp. {detailData.DetailPemesanan.hargaTotal}</h5>
+                            <h5 className="text-right text-lg font-semibold" ><span className="text-sm text-gray-500" >Kamar dipilih </span> {detailData.DetailPemesanan.DaftarKamar.length} </h5>
+                            <h5 className="text-right text-lg font-semibold" >
+                                <span className="text-sm text-gray-500" >Lama Menginap </span> 
+                                {
+                                    intervalToDuration({
+                                        start : new Date(detailData.tglCheckIn),
+                                        end : new Date(detailData.tglCheckOut),
+                                    }).days
+                                }
+                                <span className="text-sm text-gray-500" > hari </span> 
+                            </h5>
+                        </div>
                     </div>
-                    <div className="justify-between px-6 border-b-2 border-slate-500 pb-3">
-                        <h5 className="text-slate-800 text-xl font-bold" ><span className="text-sm text-gray-500">Jumlah total</span> Rp. {detailData.DetailPemesanan.hargaTotal}</h5>
-                        <h5 className="text-right text-lg font-semibold" ><span className="text-sm text-gray-500" >Kamar dipilih </span> {detailData.DetailPemesanan.DaftarKamar.length} </h5>
-                        <h5 className="text-right text-lg font-semibold" >
-                            <span className="text-sm text-gray-500" >Lama Menginap </span> 
-                            {
-                                intervalToDuration({
-                                    start : new Date(detailData.tglCheckIn),
-                                    end : new Date(detailData.tglCheckOut),
-                                }).days
-                            }
-                            <span className="text-sm text-gray-500" > hari </span> 
-                        </h5>
+                </section>
+                <section className="flex flex-row-reverse pb-7" >
+                    <div className="basis-4/6 flex flex-col gap-2">
+                        <div className="flex justify-between">
+                            <p className="text-gray-500 font-semibold">Nama Pemesan</p>
+                            <p>{detailData.namaPemesan}</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-gray-500 font-semibold">Email Pemesan</p>
+                            <p>{detailData.emailPemesan}</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-gray-500 font-semibold">Nama tamu</p>
+                            <p>{detailData.namaTamu}</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-gray-500 font-semibold">Tanggal Check In</p>
+                            <p>{detailData.tglCheckIn}</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p className="text-gray-500 font-semibold">Tanggal Check Out</p>
+                            <p>{detailData.tglCheckOut}</p>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <section className="flex flex-row-reverse pb-7" >
-                <div className="basis-4/6 flex flex-col gap-2">
-                    <div className="flex justify-between">
-                        <p className="text-gray-500 font-semibold">Nama Pemesan</p>
-                        <p>{detailData.namaPemesan}</p>
-                    </div>
-                    <div className="flex justify-between">
-                        <p className="text-gray-500 font-semibold">Email Pemesan</p>
-                        <p>{detailData.emailPemesan}</p>
-                    </div>
-                    <div className="flex justify-between">
-                        <p className="text-gray-500 font-semibold">Nama tamu</p>
-                        <p>{detailData.namaTamu}</p>
-                    </div>
-                    <div className="flex justify-between">
-                        <p className="text-gray-500 font-semibold">Tanggal Check In</p>
-                        <p>{detailData.tglCheckIn}</p>
-                    </div>
-                    <div className="flex justify-between">
-                        <p className="text-gray-500 font-semibold">Tanggal Check Out</p>
-                        <p>{detailData.tglCheckOut}</p>
-                    </div>
-                </div>
-            </section>
+                </section>
             </div>
         </section>
         </>

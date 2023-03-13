@@ -17,8 +17,7 @@ import Link from 'next/link'
 import MainGuestLayout from '@/layouts/MainGuestLayout'
 
 //font
-import { Adamina } from "@next/font/google"
-const adamina = Adamina({subsets : ["latin"],weight : ["400"]})
+import adamina from '@/font/Adamina';
 
 export default function Home() {
   const [tipeKamarList, setTipeKamarList] = useState([]);

@@ -52,7 +52,7 @@ export default function Header(){
                 <h1 className="font-semibold text-xl">{judul}</h1>
                 <Tippy 
                     content={(
-                        <div className="font-sans bg-white shadow-md rounded  break-words w-[300px]">
+                        <div className="transition-all font-sans bg-white shadow-md rounded  break-words w-[300px] relative">
                             <div className="py-7">
                                 {/* TODO : buat suapay properti object center bisa digunakan di gambar ini */}
                                 <Image className=" mb-4 w-28 h-28 border object-fit rounded-full mx-auto" src={IMAGE_SOURCE_URL + userData.foto} width={150} height={150}/>
@@ -71,7 +71,7 @@ export default function Header(){
                                 </button>
                             </div>
                         </div>
-                    )} 
+                    )}
                     maxWidth={600}
                     interactive={true}
                     trigger="click"
