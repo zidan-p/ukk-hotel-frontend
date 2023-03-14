@@ -4,12 +4,17 @@ import { useEffect, useState } from "react"
 import {toast} from "react-toastify"
 import BackDrop from "./BackDrop"
 import Content from "./Content"
+import DeletePemesanan from "./delete/DeletePemesanan";
+import EditForm from "./edit/EditForm";
 
+
+const SECTION = ["info", "edit", "delete"];
 function SideModal({handleClose, show, idPemesanan}){
     const [closeAnim, setCloseAnim] = useState(false);
     const [openAnim, setOpenAnim] = useState(false);
     const [openState, setOpenState] = useState(false);
     const [pemesananData, setPemesananData] = useState({});
+    const [activePage, setActivePage] = useState(0); //artinya info
 
     useEffect(()=>{
         if(show){openModal()}
@@ -41,12 +46,16 @@ function SideModal({handleClose, show, idPemesanan}){
 
     function closeModal(){
         if(openState === false)return
-        console.log("close modal tertriggger")
         setCloseAnim(true);
         setTimeout(()=>{
             setOpenState(false);
             setCloseAnim(false);
+            setActivePage(0);
         },450)
+    }
+
+    function changePage(pageNumber){
+        setActivePage(pageNumber);
     }
 
     return(
@@ -69,7 +78,17 @@ function SideModal({handleClose, show, idPemesanan}){
                 ${closeAnim ? "translate-x-full" : ""}
                 `}
             >
-                <Content dataPemesanan={pemesananData} onClose={handleClose} />
+                {(()=>{
+                    if(activePage === 0) 
+                    return <Content onChangePage={changePage} dataPemesanan={pemesananData} onClose={handleClose} />
+                    else if (activePage === 1)
+                    return <EditForm onChangePage={changePage} dataPemesanan={pemesananData} onClose={handleClose} />
+                    else if (activePage === 2)
+                    return <DeletePemesanan onChangePage={changePage} dataPemesanan={pemesananData} onClose={handleClose} />
+                    else return (
+                        <h1>Data abda tidak ada</h1>
+                    )
+                })()}
             </div>
         </BackDrop>
     )

@@ -27,16 +27,31 @@ const pemesanan = {
     },
     createPemesananDirect : [],
     acceptPemesaanan : [],
-    updatePemesanan: [],
+    updatePemesanan: async ({id, dataSend}) => {
+        try {
+            const data = await instanceAxios.put("/pemesanan/"+id,dataSend)
+            return await data.data;
+        } catch (error) {
+            return error
+        }
+    },
     updateStatusPemesanan: async ({id, status}) => {
         try {
             const data = await instanceAxios.put("/pemesanan/status/"+id,{status : status})
             return await data.data;
         } catch (error) {
+            throw new Error(error);
             return error;
         }
     },
-    deletePemesanan : []
+    deletePemesanan : async (id) => {
+        try {
+            const data = await instanceAxios.delete("/pemesanan/"+id);
+            return await data.data;
+        } catch (error) {
+            return error;
+        }
+    }
 }
 
 export default pemesanan

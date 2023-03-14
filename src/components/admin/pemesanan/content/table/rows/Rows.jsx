@@ -40,7 +40,7 @@ function TableRows({
                 duration={0}
                 delay={[600,0]}
                 >
-                    <button onClick={()=>handleNextStatus("diterima")} className="transition text-yellow-700 opacity-40 hover:opacity-100">
+                    <button onClick={()=>handleNextStatus({id : id,status :"diterima"})} className="transition text-yellow-700 opacity-40 hover:opacity-100">
                         accept
                     </button>
                 </Tippy>
@@ -64,7 +64,7 @@ function TableRows({
                 delay={[600,0]}
                 >
 
-                <button onClick={()=>handleNextStatus("check_in")} className="transition text-green-700 opacity-40 hover:opacity-100">
+                <button onClick={()=>handleNextStatus({id : id,status :"check_in"})} className="transition text-green-700 opacity-40 hover:opacity-100">
                     Check In
                 </button>
                 </Tippy>
@@ -88,7 +88,7 @@ function TableRows({
                 delay={[600,0]}
                 >
 
-                <button onClick={()=>handleNextStatus("check_out")} className="transition text-slate-700 opacity-40 hover:opacity-100">
+                <button onClick={()=>handleNextStatus({id : id,status :"check_out"})} className="transition text-slate-700 opacity-40 hover:opacity-100">
                     Check Out
                 </button>
                 </Tippy>

@@ -8,6 +8,7 @@ import PemesananContent from "@/components/admin/pemesanan/content/Content"
 import pemesanan from "@/service/pemesanan"
 import SunIcon from "@/components/icons/SunIcon"
 import SideModal from "@/components/admin/pemesanan/sideModal/SideModal"
+import { toast } from "react-toastify"
 
 
 
@@ -60,16 +61,18 @@ function AdminPemesanan(){
 
     async function onStatusChange(status){
         try {
-            const result = pemesanan.updateStatusPemesanan(status);
+            const result = await pemesanan.updateStatusPemesanan(status);
             setData();
+            toast.success("berhasil mengubah status")
         } catch (error) {
+            toast.error("gagal mengubah status")
             console.log(error);
         }
     }
 
     async function onCloseSideModal(){
         setShowSideModal(false);
-        setData(); //supaya setiap data yang diubah dari modal bisa terupdate
+        await setData(); //supaya setiap data yang diubah dari modal bisa terupdate
     }
 
     async function openSideModal(idPemesanan){

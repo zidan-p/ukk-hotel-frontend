@@ -30,7 +30,6 @@ function Table({children}){
                     </th>
                     <th className=" py-2 px-3 gap-1">
                         <div className="flex gap-2">
-                            <MoneyIcon className={"w-4"} />
                             Total
                         </div>
                     </th>
