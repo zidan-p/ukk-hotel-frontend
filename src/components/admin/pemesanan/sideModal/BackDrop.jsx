@@ -10,7 +10,7 @@ function BackDrop({children, className, onClose}){
     }
 
     return(
-        <div onClick={handleClose} className={` absolute inset-0 bg-gray-900 bg-opacity-60 ${className}`}>
+        <div onClick={handleClose} className={` absolute inset-0 bg-gray-900 ${className}`}>
             {children}
         </div>
     )

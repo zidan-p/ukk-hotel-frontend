@@ -26,8 +26,9 @@ function AdminPemesanan(){
         status: "all" 
     })
     const [loading, setLoading] = useState(true);
-    const [pageData, setPageData] = useState({});
+    const [pageData, setPageData] = useState({}); 
     const [showSideModal, setShowSideModal] = useState(false);
+    const [activePemesananId, setActivePemesananId] = useState(null);
 
     useEffect(()=>{  setData()  },[])
 
@@ -72,7 +73,7 @@ function AdminPemesanan(){
     }
 
     async function openSideModal(idPemesanan){
-        console.log("modal seharusnya terbuka")
+        setActivePemesananId(idPemesanan);
         setShowSideModal(true);
     }
 
@@ -99,6 +100,7 @@ function AdminPemesanan(){
                     <SideModal 
                         handleClose={onCloseSideModal} 
                         show={showSideModal} 
+                        idPemesanan={activePemesananId}
                     />
                 </>
                 ):(

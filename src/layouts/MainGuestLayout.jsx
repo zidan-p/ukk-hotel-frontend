@@ -3,6 +3,8 @@
 import FooterGuest from "@/components/guest/footer/FooterGuest"
 import NavbarHeader from "@/components/guest/navbar/NavbarHeader"
 
+
+
 import { Roboto } from '@next/font/google'
 
 const roboto = Roboto({
@@ -25,6 +27,7 @@ export default ({children}) => {
                 </div>
             </div>
             <FooterGuest />
+            
         </div>
         </>
     )

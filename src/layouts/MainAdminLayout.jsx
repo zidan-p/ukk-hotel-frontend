@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react';
 import checkToken from '@/features/checkToken';
 import SunIcon from '@/components/icons/SunIcon';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const roboto = Roboto({
     subsets: ['latin'],
     variable: "--font-roboto",
@@ -49,6 +52,7 @@ export default function MainAdminLayout({children}){
                 <Header/>
                 {children}
             </SideContainer>
+            <ToastContainer hideProgressBar />
         </div>
     )
 }

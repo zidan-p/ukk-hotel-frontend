@@ -5,7 +5,14 @@ const pemesanan = {
     getAllPemesanan : [],
     getAllPemesaanFull : [],
     getpemesanan: [],
-    getpemesananFull: [],
+    getpemesananFull: async (idPemesanan) => {
+        try {
+            const data = await instanceAxios.get("/pemesanan/find/full/"+idPemesanan);
+            return await data.data;
+        } catch (error) {
+            return error;
+        }
+    },
     getPemesananFilter: async (filterData) => {
         const data = await instanceAxios.get("/pemesanan/filter",{params: filterData});
         return await data.data
