@@ -18,7 +18,8 @@ function TableRows({
     tglCheckOut,
     status, //baru, diterima, check_in, check_out
     hargaTotal,
-    handleNextStatus
+    handleNextStatus,
+    onOpenModal
 }){
 
     let statusElement;
@@ -30,7 +31,7 @@ function TableRows({
                 Baru
                 <Tippy
                 content={(
-                    <div className={`${roboto.className} text-xs w-24 text-center bg-slate-700 text-white rounded p-2`}>
+                    <div className={`${roboto.className} text-xs w-48 bg-opacity-80 text-center bg-slate-700 text-white rounded p-2`}>
                         <AlertIcon className={"mx-auto mb-2"} />
                         Ubah status pemesanan menjadi diterima
                     </div>
@@ -53,7 +54,7 @@ function TableRows({
                 Diterima
                 <Tippy
                 content={(
-                    <div className={`${roboto.className} text-xs w-24 text-center bg-slate-700 text-white rounded p-2`}>
+                    <div className={`${roboto.className} text-xs w-48 bg-opacity-80 text-center bg-slate-700 text-white rounded p-2`}>
                         <AlertIcon className={"mx-auto mb-2"} />
                         Ubah status pemesanan menjadi Check In
                     </div>
@@ -77,7 +78,7 @@ function TableRows({
                 Check In
                 <Tippy
                 content={(
-                    <div className={`${roboto.className} text-xs w-24 text-center bg-slate-700 text-white rounded p-2`}>
+                    <div className={`${roboto.className} text-xs w-48 bg-opacity-80 text-center bg-slate-700 text-white rounded p-2`}>
                         <AlertIcon className={"mx-auto mb-2"} />
                         Ubah status pemesanan menjadi Check Out
                     </div>
@@ -115,7 +116,7 @@ function TableRows({
             <td className="px-2 py-1.5 text-gray-500">{formatDateIDN(tglCheckOut)}</td>
             <td className="px-2 py-1.5 text-gray-500 font-semibold">Rp. {formatMoneyIDN(hargaTotal)}</td>
             <td className="px-2 py-1.5">
-                <button className="transition p-1 px-3 mx-auto rounded hover:bg-slate-300">
+                <button onClick={()=>onOpenModal(id)} className="transition p-1 px-3 mx-auto rounded hover:bg-slate-300 active:bg-slate-400">
                     <MoreVertical className={"w-3"} />
                 </button>
             </td>

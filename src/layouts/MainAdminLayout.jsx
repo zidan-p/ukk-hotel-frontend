@@ -43,9 +43,9 @@ export default function MainAdminLayout({children}){
     )
 
     return (
-        <div className={`${roboto.variable} font-sans max-h-screen h-screen w-full flex`}>
+        <div className={`${roboto.variable} font-sans max-h-screen h-screen max-w-full overflow-x-hidden w-full flex`}>
             <Sidebar className={"basis-1/6 py-2 shrink-0"} />
-            <SideContainer className={`grow shrink overflow-auto shadow`}>
+            <SideContainer className={`w-full shrink overflow-auto shadow bg-white`}>
                 <Header/>
                 {children}
             </SideContainer>

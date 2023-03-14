@@ -4,7 +4,7 @@ import Table from "./table/Table"
 import TableRows from "./table/rows/Rows"
 import Pagination from "../../pagination/Pagination"
 
-function PemesananContent({contentData, onPageChange, handleNextStatus}){
+function PemesananContent({contentData, onPageChange, handleNextStatus, onOpenModal}){
     // return(
     //     <div className="bg-slate-600 min-h-screen p-6">
     //         <div className="bg-white text-orange-700 max-w-4xl whitespace-pre rounded shadow p-3">
@@ -35,6 +35,7 @@ function PemesananContent({contentData, onPageChange, handleNextStatus}){
                             tglCheckOut={pemesanan.tglCheckOut}
                             hargaTotal={pemesanan.DetailPemesanan.hargaTotal}
                             handleNextStatus={handleNextStatus}
+                            onOpenModal={onOpenModal}
                         />
                     ))}
                 </Table>

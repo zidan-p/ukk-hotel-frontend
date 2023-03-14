@@ -27,6 +27,7 @@ function AdminPemesanan(){
     })
     const [loading, setLoading] = useState(true);
     const [pageData, setPageData] = useState({});
+    const [showSideModal, setShowSideModal] = useState(false);
 
     useEffect(()=>{  setData()  },[])
 
@@ -46,7 +47,6 @@ function AdminPemesanan(){
             ...prev,
             [filterName] : value
         }))
-        setData();
     }
 
     async function onPageChange(pageNum){
@@ -66,29 +66,48 @@ function AdminPemesanan(){
         }
     }
 
+    async function onCloseSideModal(){
+        setShowSideModal(false);
+        setData(); //supaya setiap data yang diubah dari modal bisa terupdate
+    }
+
+    async function openSideModal(idPemesanan){
+        console.log("modal seharusnya terbuka")
+        setShowSideModal(true);
+    }
+
     return(
-        <div className={`transition bg-slate-100 h-screen px-3 py-2  ${loading ? "opacity-0" : ""}`}>
+        <div className={`transition bg-slate-100 h-screen px-16 py-2  ${loading ? "opacity-0" : ""}`}>
             {loading 
             ? (
                 <div className="max-w-lg bg-slate-700 rounded p-4 mx-auto flex gap-2">
                     <SunIcon className={"animate-spin"} />
-                    <span>
-                    Loading
-                    </span>
+                    <span>Loading</span>
                 </div>
             ):(
                 <>
-                <SideModal />
                 <FilterTool filterParams={filterParams} onFilterChange={onFilterChange} onFind={setData} />
                 {pageData.result.getPemesananList.count !== 0
-                ?<PemesananContent contentData={pageData.result.getPemesananList} handleNextStatus={onStatusChange}  onPageChange={onPageChange} />
-
-                :(
+                ?(
+                <>
+                    <PemesananContent 
+                        contentData={pageData.result.getPemesananList} 
+                        handleNextStatus={onStatusChange}  
+                        onPageChange={onPageChange} 
+                        onOpenModal={openSideModal}
+                    />
+                    <SideModal 
+                        handleClose={onCloseSideModal} 
+                        show={showSideModal} 
+                    />
+                </>
+                ):(
                     <div className="w-full bg-white p-3 font-semibold text-gray-400 text-center">
                         maaf data tidak tersedia
                     </div>
                 )}
-                
+
+                {/* modal samping */}
                 </>
             )}
         </div>
