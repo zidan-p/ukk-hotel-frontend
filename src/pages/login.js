@@ -5,7 +5,7 @@ const adamina = Adamina({subsets : ["latin"],weight : ["400"]})
 
 //component
 import LoginInput from "@/components/login/LoginInput"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 //feature
@@ -13,6 +13,8 @@ import auth from "@/service/auth"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import tryLogin from "@/features/tryLogin"
+import getLocalStorage from "@/features/getLocalStorage"
+import checkToken from "@/features/checkToken"
 
 
 function Login(){
@@ -26,6 +28,16 @@ function Login(){
         isError : false,
         errorBag: {}
     })
+
+    useEffect(()=>{
+        checkLogin();
+    },[])
+
+    async function checkLogin(){
+        let data = getLocalStorage("token");
+        if(data === "" ) return router.replace("/login");
+        if((await checkToken(data)))return router.replace("/admin");
+    }
 
     async function login(e){
         e.preventDefault();

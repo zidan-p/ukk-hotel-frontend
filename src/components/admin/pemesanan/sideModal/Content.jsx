@@ -44,15 +44,15 @@ export default ({onClose,onChangePage, dataPemesanan}) => {
             <div className="basis-2/6">
                 <Image className=" w-full mb-3" src={(IMAGE_SOURCE_URL+dataPemesanan.DetailPemesanan.TipeKamarPemesanan.foto)} height={200} width={200} alt={"gambar"}/>
                 <div className="">
-                    <h5 className="text-xl font-bold">{"kamar gaul"}</h5>
-                    <h5 className="font-medium">Rp. {1000} / <span className="text-gray-500">malam</span> </h5>
+                    <h5 className="text-xl font-bold">{dataPemesanan.DetailPemesanan.TipeKamarPemesanan.namaTipeKamar}</h5>
+                    <h5 className="font-medium">Rp. {dataPemesanan.DetailPemesanan.TipeKamarPemesanan.harga} / <span className="text-gray-500">malam</span> </h5>
                 </div>
             </div>
             <section className="basis-4/6">
                 <div className="w-full basis-4/6 flex justify-between self-start border-b">
                     <div className="text-slate-800 text-xl font-bold border-b-2 flex flex-col border-slate-500 " >
                         <span className="text-sm text-gray-500 text-right">Jumlah total</span> 
-                        <span>Rp. {120000}</span>
+                        <span>Rp. {dataPemesanan.DetailPemesanan.hargaTotal}</span>
                     </div>
                     
                     <div className="justify-between pb-3">

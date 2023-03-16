@@ -18,9 +18,24 @@ import MainGuestLayout from '@/layouts/MainGuestLayout'
 
 //font
 import adamina from '@/font/Adamina';
+import { isObjectEmpty } from '@/utils/object';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const [tipeKamarList, setTipeKamarList] = useState([]);
+  const [popularTipeKamar, setPopularTipeKamae] = useState({});
+
+  const getPopularTipeKamar = async()=>{
+    try {
+      if(isObjectEmpty(tipeKamarList[0])) return
+      let data = await tipeKamar.getTipeKamarFull(tipeKamarList[0].id);
+      console.log(data);
+      setPopularTipeKamae(data.result.getTipeKamarOne.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("ada masalah");
+    }
+  }
 
   const getTipeKamar = async () => {
     try {
@@ -30,8 +45,10 @@ export default function Home() {
       console.log(error)
     }
   }
-  useEffect(()=>{getTipeKamar()},[])
+  useEffect(()=>{getTipeKamar()},[]);
+  useEffect(() =>{getPopularTipeKamar()}, [tipeKamarList])
 
+  if(tipeKamarList.length === 0)return <></>
   return (
     <>
       <Head>
@@ -71,7 +88,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className='min-h[100px] px-28 py-10'>
+        {/* <section className='min-h[100px] px-28 py-10'>
             <h5 className='text-slate-500 text-center font-semibold'>Mengapa ?</h5>
             <h3 className='font-semibold text-center text-lg mb-6'>Layanan dari kami untuk kepuasan anda</h3>
             <div className="flex gap-6 justify-center">
@@ -90,47 +107,29 @@ export default function Home() {
                     <Image className="max-w-full" src={"/images/test-image-illustration.png"} width={1000} height={400} />
                 </div>
             </div>
-        </section>
+        </section> */}
 
-        <section className="min-h-[90px] px-28 py-24 mb-10">
-            <h5 className='text-slate-500 text-center font-semibold'>Layanan</h5>
-            <h3 className='font-semibold text-center text-lg mb-6'>Beragam jenis kamar kami sediakan sesuai dengan kebutuhan anda</h3>
-            <div className="flex">
-                <div className="basis-1/2">
-                    <p className="font-light mb-4 text-center">
-                        dengan layanan booking online, anda dapat memesan sekarang juga
-                    </p>
-                    <div className="flex items-center gap-3 justify-center">
-                        <Link href={"/"} className="transition rounded-sm bg-[rgb(250,204,21,.2)] border border-yellow-600 px-4 py-1 hover:bg-yellow-500">Pesan sekarang</Link>
-                        <Link href={"/"} className="hover:underline">Lihat selengkapnya</Link>
-                    </div>
-                </div>
-                <div className="basis-1/2 flex flex-col gap-5">
-                    {tipeKamarList.map((el,i) => <KamarImage key={el.id} fotoName={el.foto} tipeKamar={el.namaTipeKamar} />)}
-                </div>
-            </div>
-        </section>
-
-        <section className='bg-gray-200 py-16'>
-          <h5 className='text-slate-500 text-center font-semibold'>Kata Mereka</h5>
-          <h3 className='font-semibold text-center text-lg mb-6'>Apa kata customer kami sebelumnya</h3>
-          <Marquee className="flex gap-4 py-3 border-y border-gray-300">
-            <PersonComment className={"mr-28 ml-3"} nama={"zidan"} >
-              ini bagus sekali
-            </PersonComment>
-            <PersonComment className={"mr-28 ml-3"} nama={"zidan"} >
-              ini bagus sekali
-            </PersonComment>
-            <PersonComment className={"mr-28 ml-3"} nama={"zidan"} >
-              ini bagus sekali
-            </PersonComment>
-            <PersonComment className={"mr-28 ml-3"} nama={"zidan"} >
-              ini bagus sekali
-            </PersonComment>
-            <PersonComment className={"mr-28 ml-3"} nama={"zidan"} >
-              ini bagus sekali
-            </PersonComment>
-          </Marquee>
+        <section className='min-h-[100px] px-28 py-10'>
+          <h5 className='font-semibold text-lg mb-6'>Kamar Populer dari kami</h5>
+          <div className="flex justify-center gap-3">
+            {!isObjectEmpty(tipeKamarList[0]) ? 
+            <TipeKamarListCard tipeKamar={tipeKamarList[0]} />  
+            : ""
+            }
+            {!isObjectEmpty(popularTipeKamar) ?
+            (
+              <div className="">
+                <h1 className='text-3xl font-bold'>
+                  {popularTipeKamar.namaTipeKamar}
+                </h1>
+                <p className='font-semibold text-green-700'>{popularTipeKamar.harga}</p>
+                <p className='text-gray-500'>{popularTipeKamar.deskripsi}</p>
+              </div>
+            )
+            :""
+            }
+          
+          </div>
         </section>
           
 

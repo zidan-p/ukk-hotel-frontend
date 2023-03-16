@@ -10,12 +10,16 @@ const pemesanan = {
             const data = await instanceAxios.get("/pemesanan/find/full/"+idPemesanan);
             return await data.data;
         } catch (error) {
-            return error;
+            throw error;
         }
     },
     getPemesananFilter: async (filterData) => {
-        const data = await instanceAxios.get("/pemesanan/filter",{params: filterData});
-        return await data.data
+        try {
+            const data = await instanceAxios.get("/pemesanan/filter",{params: filterData});
+            return await data.data;
+        } catch (error) {   
+            throw error;
+        }
     },
     getPemesananByNomorPemesanan : async (nomorPemesanan) => {
         const data = await instanceAxios.get("/pemesanan/nomor-pemesanan/"+nomorPemesanan);
@@ -32,7 +36,7 @@ const pemesanan = {
             const data = await instanceAxios.put("/pemesanan/"+id,dataSend)
             return await data.data;
         } catch (error) {
-            return error
+            throw error
         }
     },
     updateStatusPemesanan: async ({id, status}) => {
@@ -41,7 +45,7 @@ const pemesanan = {
             return await data.data;
         } catch (error) {
             throw new Error(error);
-            return error;
+            throw error;
         }
     },
     deletePemesanan : async (id) => {
@@ -49,7 +53,7 @@ const pemesanan = {
             const data = await instanceAxios.delete("/pemesanan/"+id);
             return await data.data;
         } catch (error) {
-            return error;
+            throw error;
         }
     }
 }

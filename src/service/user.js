@@ -2,10 +2,22 @@ import { instanceAxios } from "."
 
 const user = {
     getAllUser : async () => {
-        let data = await instanceAxios.get("/user/")
-        return await data.data;
+        try {
+            let data = await instanceAxios.get("/user/")
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
     },
 
+    getAllUserFiltered : async (filterData) => {
+        try {
+            let data = await instanceAxios.get("/user/filter",{params: filterData});
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
+    },
     getUserById : async (id) => {
         let data = await instanceAxios.get("/user"+id)
         return await data.data

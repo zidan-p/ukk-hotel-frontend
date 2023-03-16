@@ -90,6 +90,10 @@ function AdminPemesanan(){
                 </div>
             ):(
                 <>
+                <div className="mb-8">
+                    <h1 className="text-4xl font-bold text-gray-500">{pageData.result.getPemesananList.count}</h1>
+                    <p className="text-sm text-gray-500">Data ditemukan</p>
+                </div>
                 <FilterTool filterParams={filterParams} onFilterChange={onFilterChange} onFind={setData} />
                 {pageData.result.getPemesananList.count !== 0
                 ?(

@@ -15,7 +15,7 @@ function FilterTool({
         setShowAdditional(!showAdditional);
     }
     return(
-        <section className="bg-white rounded p-2 mb-3">
+        <section className=" rounded p-2 mb-3">
             <PrimaryFilter onFind={onFind} toggleAdditional={toggleAdditional} filterParams={filterParams} onFilterChange={onFilterChange} />
             <AdditionalFilter show={showAdditional} filterParams={filterParams} onFilterChange={onFilterChange} />
         </section>

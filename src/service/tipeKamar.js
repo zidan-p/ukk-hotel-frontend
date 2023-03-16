@@ -6,6 +6,10 @@ const tipeKamar = {
         const data = await instanceAxios.get("/tipe-kamar/")
         return await data.data;
     },
+    getAllTipeKamarFiltered : async (filterData) => {
+        const data = await instanceAxios.get("/tipe-kamar/filter",{params: filterData})
+        return await data.data;
+    },
     getTipeKamar : async (idTipeKamar) => {
         const data = await instanceAxios.get("/tipe-kamar/"+idTipeKamar)
         return await data.data;

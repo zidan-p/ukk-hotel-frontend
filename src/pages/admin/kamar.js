@@ -1,16 +1,19 @@
+const { default: MainAdminLayout } = require("@/layouts/MainAdminLayout")
 
 
 
 
+function Kamar(){
+    return <></>
+}
 
 
 
+export default Kamar
 
 
 
-
-
-AdminPemesanan.getLayout = function getLayout(page){
+Kamar.getLayout = function getLayout(page){
     return (
         <MainAdminLayout>
             {page}

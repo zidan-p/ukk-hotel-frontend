@@ -1,4 +1,5 @@
 import getLocalStorage from "@/features/getLocalStorage";
+import deleteLocalStorage from "@/features/deleteLocalStorage";
 import { IMAGE_SOURCE_URL } from "@/utils/const";
 import { isObjectEmpty } from "@/utils/object";
 import Image from "next/image";
@@ -28,6 +29,12 @@ export default function Header(){
         }
     }
 
+    function logout(){
+        deleteLocalStorage("token");
+        deleteLocalStorage("userData");
+        router.push("/login");
+    }
+
     let judul;
 
     switch (router.pathname) {
@@ -36,6 +43,15 @@ export default function Header(){
             break;
         case "/admin/pemesanan" :
             judul = "Daftar Pemesanan"
+            break
+        case "/admin/user" :
+            judul = "Daftar user"
+            break
+        case "/admin/tipe-kamar" :
+            judul = "Daftar tipe-kamar"
+            break
+        case "/admin/kamar" :
+            judul = "Daftar kamar"
             break
         default:
             break;
@@ -65,7 +81,7 @@ export default function Header(){
                                 </div>
                             </div>
                             <div className="border-t w-full rounded-br rounded-bl overflow-hidden flex">
-                                <button className="flex justify-center gap-2 bg-red-700 py-1 px-3 basis-1/2 text-white hover:bg-red-600 active:bg-red-500">
+                                <button onClick={()=>logout()} className="flex justify-center gap-2 bg-red-700 py-1 px-3 basis-1/2 text-white hover:bg-red-600 active:bg-red-500">
                                     <LogoutIcon className={"w-4"} />
                                     Logout
                                 </button>

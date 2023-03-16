@@ -4,7 +4,7 @@ import Table from "./table/Table"
 import TableRows from "./table/rows/Rows"
 import Pagination from "../../pagination/Pagination"
 
-function PemesananContent({contentData, onPageChange, handleNextStatus, onOpenModal}){
+function UserContent({contentData, onPageChange, onOpenModal}){
 
     return(
         <section className="bg-white ">
@@ -21,13 +21,13 @@ function PemesananContent({contentData, onPageChange, handleNextStatus, onOpenMo
                 <Table>
                     {contentData.data.map(pemesanan => (
                         <TableRows 
+                            key={pemesanan.id}
                             id={pemesanan.id}
-                            namaPemesan={pemesanan.namaPemesan}
-                            status={pemesanan.status}
-                            tglCheckIn={pemesanan.tglCheckIn}
-                            tglCheckOut={pemesanan.tglCheckOut}
-                            hargaTotal={pemesanan.DetailPemesanan.hargaTotal}
-                            handleNextStatus={handleNextStatus}
+                            createdAt={pemesanan.createdAt}
+                            email={pemesanan.email}
+                            username={pemesanan.username}
+                            foto={pemesanan.foto}
+                            role={pemesanan.role}
                             onOpenModal={onOpenModal}
                         />
                     ))}
@@ -37,4 +37,4 @@ function PemesananContent({contentData, onPageChange, handleNextStatus, onOpenMo
     )
 }
 
-export default PemesananContent
+export default UserContent
