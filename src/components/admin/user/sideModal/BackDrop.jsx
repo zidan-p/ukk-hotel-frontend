@@ -3,7 +3,7 @@
 function BackDrop({children, className, onClose}){
 
     const handleClose = (event)=>{
-        event.preventDefault();
+        // event.preventDefault();
         if(event.target !== event.currentTarget)return;
         onClose();
     }

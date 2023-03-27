@@ -11,9 +11,9 @@ function UserContent({contentData, onPageChange, onOpenModal}){
             <div className="p-2 flex">
                 <Pagination 
                     onPageChange={onPageChange} 
-                    totalCount={contentData.pageCount} 
+                    totalCount={contentData.count} 
                     currentPage={contentData.pageCurrent}
-                    pageSize={contentData.count}
+                    pageSize={contentData.limit}
                     siblingCount={1} //angka diantara angka utama
                 />
             </div>

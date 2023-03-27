@@ -39,9 +39,9 @@ function Pagination({
       >
         <li
           className={classNames('p-2 px-3 hover:bg-slate-200', {
-            "text-gray-600": currentPage === 1
+            "text-gray-200": currentPage === 1
           })}
-          onClick={onPrevious}
+          onClick={(currentPage === 1 ? ()=>{} : onPrevious )}
         >
           <ChevronLeftIcon />
         </li>
@@ -63,9 +63,9 @@ function Pagination({
         })}
         <li
           className={classNames('p-2 px-3 hover:bg-slate-200', {
-            "text-gray-600": currentPage === lastPage
+            "text-gray-200": currentPage === lastPage
           })}
-          onClick={onNext}
+          onClick={(currentPage === lastPage ?  ()=>{} : onNext)}
         >
           <ChevronRightIcon />
         </li>

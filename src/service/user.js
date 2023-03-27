@@ -19,8 +19,12 @@ const user = {
         }
     },
     getUserById : async (id) => {
-        let data = await instanceAxios.get("/user"+id)
-        return await data.data
+        try {
+            let data = await instanceAxios.get("/user/"+id)
+            return await data.data
+        } catch (error) {
+            throw error;
+        }
     },
 
     getUserByUsername : async (username) => {
@@ -39,8 +43,16 @@ const user = {
     },
 
     createUser : async (formData) => {
-        let data = await instanceAxios.post("/user",formData)
-        return await data.data;
+        try {
+            let data = await instanceAxios.post("/user",formData,{
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+            })
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
     },
     updateUser : async (id,formData) => {
         let data = await instanceAxios.put("/user/"+id,formData)

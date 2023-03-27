@@ -75,7 +75,7 @@ function AdminPemesanan(){
         await setData(); //supaya setiap data yang diubah dari modal bisa terupdate
     }
 
-    async function openSideModal(idPemesanan){
+    async function onOpenSideModal(idPemesanan){
         setActivePemesananId(idPemesanan);
         setShowSideModal(true);
     }
@@ -102,7 +102,7 @@ function AdminPemesanan(){
                         contentData={pageData.result.getPemesananList} 
                         handleNextStatus={onStatusChange}  
                         onPageChange={onPageChange} 
-                        onOpenModal={openSideModal}
+                        onOpenModal={onOpenSideModal}
                     />
                     <SideModal 
                         handleClose={onCloseSideModal} 

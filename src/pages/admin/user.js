@@ -1,5 +1,6 @@
 import UserContent from "@/components/admin/user/content/Content";
 import FilterTool from "@/components/admin/user/filter/FilterTool";
+import SideModal from "@/components/admin/user/sideModal/SideModal";
 import SunIcon from "@/components/icons/SunIcon";
 import MainAdminLayout from "@/layouts/MainAdminLayout";
 import user from "@/service/user";
@@ -21,10 +22,17 @@ function User(){
     })
     const [loading, setLoading] = useState(true);
     const [pageData, setPageData] = useState({}); 
-    const [showSideModal, setShowSideModal] = useState(false);
+    const [showSideModal, setShowSideModal] = useState({
+        show :false,
+        sectionPage : 0 //create
+    });
     const [activeUserId, setactiveUserId] = useState(null);
 
     useEffect(()=>{ setDataUser() },[])
+
+    //untuk pagination
+    useEffect(()=>{ setDataUser() },[filterParams.page])
+    
 
 
     async function setDataUser(){
@@ -45,10 +53,23 @@ function User(){
         }))
     }
 
-    async function openSideModal(){}
+    async function onOpenCreateSideModal(){
+        setShowSideModal({sectionPage : 0,show:true});
+    }
 
+    function onOpenShowSideModal(idUser){
+        setShowSideModal({sectionPage: 1, show: true});
+        setactiveUserId(idUser);
+    }
 
-    async function onPageChange(){}
+    function onCloseSideModal(){
+        setShowSideModal({sectionPage: 0 ,show:false});
+        setDataUser();
+    }
+
+    async function onPageChange(page){
+        onfilterChange("page", page);
+    }
 
 
     return (
@@ -68,15 +89,23 @@ function User(){
                 <FilterTool 
                     filterParams={filterParams} 
                     onFilterChange={onfilterChange} 
+                    onOpenCreateModal={onOpenCreateSideModal}
                     onFind={setDataUser} 
                 />
                 {pageData.result.getUserList.count !== 0
                 ?(
+                    <>
                     <UserContent 
                         contentData={pageData.result.getUserList} 
                         onPageChange={onPageChange} 
-                        onOpenModal={openSideModal}
+                        onOpenModal={onOpenShowSideModal}
                     />
+                    <SideModal 
+                        handleClose={onCloseSideModal} 
+                        show={showSideModal}  //terisi boolean dan section nganu
+                        idUser={activeUserId}
+                    />
+                    </>
                 ):(
                     <div className="w-full bg-white p-3 font-semibold text-gray-400 text-center">
                         maaf data tidak tersedia

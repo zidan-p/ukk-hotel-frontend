@@ -29,7 +29,7 @@ function TableRows({
                     className="w-10 h-10 rounded-full" 
                     height={80} 
                     width={80} 
-                   
+                    alt={`user-${username}`}
                 />
             </td>
             <td className="px-2 py-1.5"> 

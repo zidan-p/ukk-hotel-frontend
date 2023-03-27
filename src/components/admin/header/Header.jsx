@@ -71,7 +71,7 @@ export default function Header(){
                         <div className="transition-all font-sans bg-white shadow-md rounded  break-words w-[300px] relative">
                             <div className="py-7">
                                 {/* TODO : buat suapay properti object center bisa digunakan di gambar ini */}
-                                <Image className=" mb-4 w-28 h-28 border object-fit rounded-full mx-auto" src={IMAGE_SOURCE_URL + userData.foto} width={150} height={150}/>
+                                <Image className=" mb-4 w-28 h-28 border object-cover rounded-full mx-auto" src={IMAGE_SOURCE_URL + userData.foto} width={150} height={150}/>
                                 <div className="flex  justify-center gap-2">
                                     <p className="font-semibold">{userData.username}</p>
                                     <p className="font-light">{userData.role}</p>
