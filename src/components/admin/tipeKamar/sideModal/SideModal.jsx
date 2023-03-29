@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import user from "@/service/user";
 
 //component
 import BackDrop from "./BackDrop";
@@ -8,16 +7,17 @@ import EditForm from "./edit/EditForm";
 import CreateForm from "./create/CreateForm";
 import DeleteForm from "./delete/DeleteForm";
 import ShowForm from "./show/ShowForm";
+import tipeKamar from "@/service/tipeKamar";
 
 
 
 
 const SECTION = ["create","show", "edit", "delete"];
-function SideModal({handleClose, show, idUser}){
+function SideModal({handleClose, show, idTipeKamar}){
     const [closeAnim, setCloseAnim] = useState(false);
     const [openAnim, setOpenAnim] = useState(false);
     const [openState, setOpenState] = useState(false);
-    const [userData, setUserData] = useState({});
+    const [tipeKamarData, setTipeKamarData] = useState({});
     const [activePage, setActivePage] = useState(show.sectionPage ?? 0); //artinya create// note : karena ini unmounted, maka initial state nya akan
 
     useEffect(()=>{
@@ -29,15 +29,16 @@ function SideModal({handleClose, show, idUser}){
     },[show])
 
     useEffect(()=>{
-        if(idUser == null || idUser === undefined) return
-        getUserData();
-    },[idUser])
+        if(idTipeKamar == null || idTipeKamar === undefined) return
+        getTipeKamarData();
+    },[idTipeKamar])
 
-    async function getUserData(){
+    async function getTipeKamarData(){
         if(show.sectionPage === 0) return; //bilan section page adalah creata maka tidak perlu mengambil data
         try {
-            const result = await user.getUserById(idUser);
-            setUserData(result.result.getUserOne.data);
+            const result = await tipeKamar.getTipeKamarFull(idTipeKamar)
+            setTipeKamarData(result.result.getTipeKamarOne.data);
+            // toast(JSON.stringify(result));
         } catch (error) {
             console.log(error)
             toast.error("Ada masalah..")
@@ -88,13 +89,13 @@ function SideModal({handleClose, show, idUser}){
             >
                 {(()=>{
                     if(activePage === 0) 
-                    return <CreateForm onChangePage={changePage} dataUser={userData} onClose={handleClose} />
+                    return <CreateForm onChangePage={changePage} tipeKamarData={tipeKamarData} onClose={handleClose} />
                     else if (activePage === 1)
-                    return <ShowForm onChangePage={changePage} dataUser={userData} onClose={handleClose} />
+                    return <ShowForm onChangePage={changePage} tipeKamarData={tipeKamarData} onClose={handleClose} />
                     else if (activePage === 2)
-                    return <EditForm onChangePage={changePage} dataUser={userData} onClose={handleClose} />
+                    return <EditForm onChangePage={changePage} tipeKamarData={tipeKamarData} onClose={handleClose} />
                     else if(activePage === 3)
-                    return <DeleteForm onChangePage={changePage} dataUser={userData} onClose={handleClose} />
+                    return <DeleteForm onChangePage={changePage} tipeKamarData={tipeKamarData} onClose={handleClose} />
                     else return (
                         <h1>Data abda tidak ada</h1>
                     )

@@ -25,7 +25,7 @@ function TableRows({
         <>
             <tr className="transition hover:bg-slate-50">
                 <td className="px-2 py-1.5 font-semibold ">
-                    <Image src={IMAGE_SOURCE_URL+foto} className="w-10 h-10 rounded-full" height={80} width={80} />
+                    <Image src={IMAGE_SOURCE_URL+foto} alt={"tipe-kamat-foto-"+nama} className="w-10 h-10 rounded-full" height={80} width={80} />
                 </td>
                 <td className="px-2 py-1.5"> 
                     {nama}

@@ -28,7 +28,9 @@ export default ({onChange, children, name ="", value = "", data= []}) => {
                         key={index}
                         className="py-1"
                         value={el.value}
-                    >
+
+                        selected={el.value === value}
+                        >
                         {el.label}
                     </option>
                 ))}

@@ -4,7 +4,7 @@ import Table from "./table/Table"
 import TableRows from "./table/rows/Rows"
 import Pagination from "../../pagination/Pagination"
 
-function UserContent({contentData, onPageChange, onOpenModal}){
+function TipeKamarContent({contentData, onPageChange, onOpenModal}){
 
     return(
         <section className="bg-white ">
@@ -37,4 +37,4 @@ function UserContent({contentData, onPageChange, onOpenModal}){
     )
 }
 
-export default UserContent
+export default TipeKamarContent

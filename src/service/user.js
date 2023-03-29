@@ -55,13 +55,21 @@ const user = {
         }
     },
     updateUser : async (id,formData) => {
-        let data = await instanceAxios.put("/user/"+id,formData)
-        return await data.data
+        try {
+            let data = await instanceAxios.put("/user/"+id,formData)
+            return await data.data
+        } catch (error) {
+            throw error;
+        }
     },
 
     deleteUser : async (id) => {
-        let data = await instanceAxios.delete("/user/"+id)
-        return await data.data
+        try {
+            let data = await instanceAxios.delete("/user/"+id)
+            return await data.data
+        } catch (error) {
+            throw error
+        }
     },
 }
 

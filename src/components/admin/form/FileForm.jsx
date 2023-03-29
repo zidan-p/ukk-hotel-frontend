@@ -24,7 +24,14 @@ function FileForm({name,handleOnChange, fileSrc = "", className="", children}){
             }))
 
             imgElement.current.src = "";
+            return;
         }
+
+        imgElement.current.src = fileSrc;
+        setFileData((prev) => ({
+            ...prev,
+            "isFilled" : true
+        }))
     },[fileSrc])
 
 
@@ -52,6 +59,19 @@ function FileForm({name,handleOnChange, fileSrc = "", className="", children}){
         let file = e.dataTransfer.files[0];
         console.log(file);
         changeImageSrc(file);
+    }
+
+    async function loadImageFromServer(url){
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('HEAD', urlToFile, false);
+        // xhr.send();
+
+        let imgTemp = new Image();
+        imgTemp.src = url;
+
+        imgTemp.onload(e=>{
+
+        })
     }
 
     function changeImageSrc(file){
