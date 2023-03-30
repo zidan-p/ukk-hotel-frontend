@@ -1,6 +1,5 @@
 import UploadIcon from "@/components/icons/UploadIcon";
 import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
 
 
 
@@ -129,7 +128,7 @@ function FileForm({name,handleOnChange, fileSrc = "", className="", children}){
                     className="inset-0 absolute z-10 bg-red-100 opacity-10" 
                 />
                 <div className="h-full">
-                    <div className="flex flex-col justify-center h-full">
+                    <div className="flex flex-col ">
                         {/* gambarnya optional */}
                         <img ref={imgElement} src="" className=" w-full"  />
                         {fileData.isLoading ? "loading...." : ""}
@@ -139,7 +138,7 @@ function FileForm({name,handleOnChange, fileSrc = "", className="", children}){
                                 {fileData.fileName}
                             </div>
                         ):(
-                            <div className="text-gray-500 z-0 py-6">
+                            <div className="text-gray-500 z-0 py-6 grow">
                                 <UploadIcon className={"mx-auto "} />
                                 {onDrag 
                                 ?(

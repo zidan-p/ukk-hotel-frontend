@@ -19,16 +19,34 @@ const tipeKamar = {
         return await data.data;
     },
     createTipeKamar : async (formData) => {
-        const data = await instanceAxios.post("/tipe-kamar/")
-        return await data.data;
+        //NOTE : untuk create tipe kamar belum divalidasi, sehingga semua data bisa dikirim
+        //bahkan data kosongpun
+        try {
+            const data = await instanceAxios.post("/tipe-kamar/", formData,{
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                }
+            });
+            return await data.data;
+        } catch (error) {
+            throw error;    
+        }
     },
     updateTipeKamar : async (idTipeKamar,formData) => {
-        const data = await instanceAxios.put("/tipe-kamar/"+idTipeKamar,formData)
-        return await data.data;
+        try {
+            const data = await instanceAxios.put("/tipe-kamar/"+idTipeKamar,formData)
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
     },
     deleteTipeKamar : async (idTipeKamar) => {
-        const data = await instanceAxios.delete('/tipe-kamar/'+idTipeKamar)
-        return await data.data;
+        try {
+            const data = await instanceAxios.delete('/tipe-kamar/'+idTipeKamar)
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

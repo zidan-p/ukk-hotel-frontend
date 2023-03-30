@@ -1,7 +1,7 @@
 import AlertIcon from "@/components/icons/AlertIcon";
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon";
 import XIcon from "@/components/icons/XIcon";
-import user from "@/service/user";
+import tipeKamar from "@/service/tipeKamar";
 import { toast } from "react-toastify";
 
 
@@ -9,20 +9,19 @@ import { toast } from "react-toastify";
 
 
 
-function DeleteForm({onChangePage, dataUser, onClose}){
+function DeleteForm({onChangePage, tipeKamarData, onClose}){
 
 
     async function deleteUser(){
         try {
-            // toast(JSON.stringify(dataUser));
-            const result = await user.deleteUser(dataUser.id);
+            // toast(JSON.stringify(tipeKamarData));
+            const result = await tipeKamar.deleteTipeKamar(tipeKamarData.id);
             onClose();
-            toast.success("user selesai dihapus");
+            toast.success("data selesai dihapus");
         } catch (error) {
-            toast.error("user gagal dihapus");
+            toast.error("data gagal dihapus");
             toast(JSON.stringify(error));
         }
-
     }
 
     function goToShow(){
@@ -33,11 +32,11 @@ function DeleteForm({onChangePage, dataUser, onClose}){
     return (
         <>
         <div className="border-b pt-1 py-2 flex justify-between">
-            <button onClick={goToShow} className="flex hover:bg-slate-200 rounded px-2 items-center">
+            <button onClick={goToShow} className="transition text-gray-500 hover:text-gray-800 flex hover:bg-slate-200 rounded px-2 items-center">
                 <ChevronLeftIcon />
-                <h1 className="font-semibold text-gray-500 self-center mr-2">
-                    <span className="text-red-400">Hapus </span>
-                    {dataUser.username}
+                <h1 className="font-semibold  self-center mr-2">
+                    <span className="">Hapus </span>
+                    {tipeKamarData.username}
                 </h1>
             </button>
             <button onClick={onClose} className="p-1 text-gray-500 hover:text-slate-800 hover:bg-slate-200">
@@ -45,12 +44,12 @@ function DeleteForm({onChangePage, dataUser, onClose}){
             </button>
         </div>
 
-        <div className="px-5 flex flex-col justify-center h-full gap-3">
+        <div className="px-5 max-w-xl mx-auto flex flex-col mt-11 h-full gap-3">
             <div className="bg-red-50 rounded p-3 pt-5">
                 <AlertIcon className={"text-red-700 w-20 h-20 mx-auto mb-5"} />
                 <p className="text-center text-red-800">
-                    apakah anda yakin ingin menghapus data user 
-                    <span className="inline-block bg-red-200 px-2 rounded">{dataUser.username}</span>
+                    apakah anda yakin ingin menghapus data tipe kamar 
+                    <span className="inline-block bg-red-200 px-2 rounded font-semibold">{tipeKamarData.namaTipeKamar}</span>
                 </p>
             </div>
             <div className="flex px-2 gap-2">

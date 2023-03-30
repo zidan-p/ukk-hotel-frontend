@@ -33,7 +33,7 @@ function TableRows({
                 <td className="px-2 py-1.5 text-gray-500">
                     {formatDateIDN(tanggalDibuat)}
                 </td>
-                <td className="px-2 py-1.5 text-gray-500">{deskripsi.substring(0,12)}</td>
+                <td className="px-2 py-1.5 text-gray-500">{deskripsi?.substring(0,12)}</td>
                 <td className="px-2 py-1.5 text-gray-500">{banyakKamar}</td>
                 <td className="px-2 py-1.5">
                     <button onClick={()=>{onOpenModal(id)}} className="transition p-1 px-3 mx-auto rounded hover:bg-slate-300 active:bg-slate-400">

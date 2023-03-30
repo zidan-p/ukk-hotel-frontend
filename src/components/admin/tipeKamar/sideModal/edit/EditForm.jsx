@@ -1,9 +1,8 @@
 import FileForm from "@/components/admin/form/FileForm";
 import InputForm from "@/components/admin/form/InputForm";
-import SelectForm from "@/components/admin/form/SelectForm";
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon";
 import XIcon from "@/components/icons/XIcon";
-import user from "@/service/user";
+import tipeKamar from "@/service/tipeKamar";
 import { IMAGE_SOURCE_URL } from "@/utils/const";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -12,13 +11,12 @@ import { toast } from "react-toastify";
 
 
 
-function EditForm({onChangePage, dataUser, onClose}){
+function EditForm({onChangePage, tipeKamarData, onClose}){
     const [formState, setFormState] = useState({
-        username : dataUser.username,
+        namaTipeKamar : tipeKamarData.namaTipeKamar,
+        harga : tipeKamarData.harga,
+        deskripsi : tipeKamarData.deskripsi,
         foto : null,
-        email : dataUser.email,
-        password : "",
-        role : dataUser.role
     });
 
     function handleChange(e){
@@ -30,15 +28,14 @@ function EditForm({onChangePage, dataUser, onClose}){
     }
 
     //sya buat ini supaya meski tak senagaj tertutup statenya masih ada.
-    //hal itu karena saya tidak mengapus component ketika tertutup.
-    // tapi saya perlu fungsi untuk mereset state;
+    // jadi setiap ditutup, componentnya harus masih ada.
+    // tapi saya perlu fungsi untuk mereset state setiap melakuakn perubahan data.
     function resetState(){
         setFormState({
-            username : "",
+            namaTipeKamar : tipeKamarData.namaTipeKamar,
+            harga : tipeKamarData.harga,
+            deskripsi : tipeKamarData.deskripsi,
             foto : null,
-            email : "",
-            password : "",
-            role : "admin"
         })
     }
 
@@ -49,16 +46,11 @@ function EditForm({onChangePage, dataUser, onClose}){
         }))
     }
 
-    function backToShow(){
-        onChangePage(1);
-    }
-
     async function sendData(e){
         e.preventDefault();
         try {
-            // toast(JSON.stringify(formState))
-            const result = await user.updateUser(dataUser.id,formState);
-            toast.success("data berhasil ditambahkan");
+            const result = await tipeKamar.updateTipeKamar(tipeKamarData.id,formState);
+            toast.success("data berhasil diubah");
             onClose();
             resetState();
         } catch (error) {
@@ -67,77 +59,66 @@ function EditForm({onChangePage, dataUser, onClose}){
         }
     }
 
+    function backToShow(){
+        onChangePage(1);
+    }
+
+
+
+
+
     return (
-    <>
-        <div className="border-b pt-1 py-2 flex justify-between mb-3">
-            <button onClick={backToShow} className="flex text-gray-500 hover:bg-slate-100 items-center rounded px-2" >
+        <>
+        <div className="border-b  pb-2 flex justify-between mb-2">
+            <button onClick={backToShow} className="flex text-gray-500 px-2 hover:bg-gray-100 hover:text-gray-800 rounded items-center ">
                 <ChevronLeftIcon />
-                <h1 className="font-semibold  mr-3">Edit user</h1>
+                <h1 className="font-semibold ">Update Tipe kamar</h1>
             </button>
             <button onClick={onClose} className="p-1 text-gray-500 hover:text-slate-800 hover:bg-slate-200">
                 <XIcon />
             </button>
         </div>
-        
-        <form action="" className="flex flex-col px-4 h-full max-h-full ">
-            <div className="h-full max-h-full overflow-y-auto">
-                <div className="form-list flex flex-col gap-5 overflow-y-auto">
-                    <InputForm
-                        onChange={handleChange} 
-                        value={formState.username} 
-                        name="username"  
-                    >
-                        Username
-                    </InputForm>
-                    <InputForm 
-                        onChange={handleChange} 
-                        value={formState.email} 
-                        name="email" 
-                    >
-                        email
-                    </InputForm>
-                    <InputForm 
-                        onChange={handleChange}
-                        value={formState.password}
-                        name="password"
-                    >
-                        password <span className="text-xs font-normal text-gray-500">kosongi bila password tetap sama</span>
-                    </InputForm>
-                    <SelectForm  
-                        onChange={handleChange}
-                        value={formState.role}
-                        name="role"
-                        data={[
-                            {
-                                label: "Admin",
-                                value: "admin"
-                            },
-                            {
-                                label: "Resepsionis",
-                                value: "resepsionis"
-                            }
-                        ]}
-                    >
-                        role admin
-                    </SelectForm>
-                    <FileForm
-                        className="mt-5"
-                        handleOnChange={handleOnFileChange} 
-                        name="foto" 
-                        fileSrc={IMAGE_SOURCE_URL + dataUser.foto} 
-                    >
-                        Foto User
-                    </FileForm>
-                </div>
 
+        <form action="" className="flex flex-col gap-5 px-4 h-full max-h-full">
+            <div className="form-list grow flex max-h-full flex-col gap-5">
+                <InputForm 
+                    onChange={handleChange} 
+                    value={formState.namaTipeKamar} 
+                    name="namaTipeKamar"  
+                >
+                    Nama Tipe Kamar
+                </InputForm>
+                <InputForm 
+                    onChange={handleChange} 
+                    value={formState.deskripsi} 
+                    name="deskripsi"  
+                >
+                    Deskripsi
+                </InputForm>
+                <InputForm 
+                    onChange={handleChange} 
+                    value={formState.harga} 
+                    name="harga"  
+                >
+                    Harga
+                </InputForm>
+                <FileForm 
+                    className="mt-5"
+                    handleOnChange={handleOnFileChange} 
+                    name="foto" 
+                    fileSrc={IMAGE_SOURCE_URL + tipeKamarData.foto}
+                >
+                    Foto User
+                </FileForm>
             </div>
-            <div className="w-full mt-5">
+            <div className="w-full">
                 <button onClick={sendData} className="w-full bg-slate-800 text-white px-5 py-1 rounded-sm hover:bg-slate-700 active:bg-slate-600">
                     Edit
                 </button>
             </div>
         </form>
-    </>
+        
+        </>
     )
 }
 

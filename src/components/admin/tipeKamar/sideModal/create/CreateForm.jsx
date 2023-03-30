@@ -1,21 +1,19 @@
 import FileForm from "@/components/admin/form/FileForm";
 import InputForm from "@/components/admin/form/InputForm";
-import SelectForm from "@/components/admin/form/SelectForm";
 import XIcon from "@/components/icons/XIcon";
+import tipeKamar from "@/service/tipeKamar";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import user from "@/service/user";
 
 
 
 function CreateForm({onClose}){
 
     const [formState, setFormState] = useState({
-        username : "",
+        namaTipeKamar : "",
+        harga : "",
+        deskripsi : "",
         foto : null,
-        email : "",
-        password : "",
-        role : "admin"
     });
 
     function handleChange(e){
@@ -27,15 +25,14 @@ function CreateForm({onClose}){
     }
 
     //sya buat ini supaya meski tak senagaj tertutup statenya masih ada.
-    //hal itu karena saya tidak mengapus component ketika tertutup.
-    // tapi saya perlu fungsi untuk mereset state;
+    // jadi setiap ditutup, componentnya harus masih ada.
+    // tapi saya perlu fungsi untuk mereset state setiap melakuakn perubahan data.
     function resetState(){
         setFormState({
-            username : "",
+            namaTipeKamar : "",
+            harga : "",
+            deskripsi : "",
             foto : null,
-            email : "",
-            password : "",
-            role : "admin"
         })
     }
 
@@ -49,8 +46,9 @@ function CreateForm({onClose}){
     async function sendData(e){
         e.preventDefault();
         try {
-            const result = await user.createUser(formState);
-            toast.success("data berhasil ditambahkan");
+            const result = await tipeKamar.createTipeKamar(formState);
+            console.log(result);
+            toast.success("data berhasil diubah");
             onClose();
             resetState();
         } catch (error) {
@@ -59,15 +57,15 @@ function CreateForm({onClose}){
         }
     }
 
-    function handleClose(){
-
+    function backToShow(){
+        onChangePage(1);
     }
 
 
     return (
         <>
         <div className="border-b pt-1 py-2 flex justify-between">
-            <h1 className="font-semibold text-gray-500">Create User</h1>
+            <h1 className="font-semibold text-gray-500">Create Tipe Kamar</h1>
             <button onClick={onClose} className="p-1 text-gray-500 hover:text-slate-800 hover:bg-slate-200">
                 <XIcon />
             </button>
@@ -77,54 +75,37 @@ function CreateForm({onClose}){
             <div className="form-list grow flex max-h-full flex-col gap-5">
                 <InputForm 
                     onChange={handleChange} 
-                    value={formState.username} 
-                    name="username"  
+                    value={formState.namaTipeKamar} 
+                    name="namaTipeKamar"  
                 >
-                    Username
+                    Nama Tipe Kamar
                 </InputForm>
                 <InputForm 
                     onChange={handleChange} 
-                    value={formState.email} 
-                    name="email" 
+                    value={formState.deskripsi} 
+                    name="deskripsi"  
                 >
-                    email
+                    Deskripsi
                 </InputForm>
                 <InputForm 
-                    onChange={handleChange}
-                    value={formState.password}
-                    name="password"
+                    onChange={handleChange} 
+                    value={formState.harga} 
+                    name="harga"  
                 >
-                    password
+                    Harga
                 </InputForm>
-                <SelectForm  
-                    onChange={handleChange}
-                    value={formState.role}
-                    name="role"
-                    data={[
-                        {
-                            label: "Admin",
-                            value: "admin"
-                        },
-                        {
-                            label: "Resepsionis",
-                            value: "resepsionis"
-                        }
-                    ]}
-                >
-                    role admin
-                </SelectForm>
                 <FileForm 
                     className="mt-5"
                     handleOnChange={handleOnFileChange} 
                     name="foto" 
-                    fileSrc=""  
+                    fileSrc=""
                 >
                     Foto User
                 </FileForm>
             </div>
             <div className="w-full">
                 <button onClick={sendData} className="w-full bg-slate-800 text-white px-5 py-1 rounded-sm hover:bg-slate-700 active:bg-slate-600">
-                    Buat
+                    Create
                 </button>
             </div>
         </form>

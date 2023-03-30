@@ -81,7 +81,7 @@ function SideModal({handleClose, show, idTipeKamar}){
                 >
             <div 
                 className={`
-                transition-all basis-1/4 grow-0 overflow-x-auto flex flex-col
+                transition-all basis-2/3 grow-0 overflow-x-auto flex flex-col
                 bg-white rounded-l p-3 
                 ${openState ? "" : "translate-x-full"}
                 ${closeAnim ? "translate-x-full" : ""}
