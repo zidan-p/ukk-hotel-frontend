@@ -3,8 +3,20 @@ import { instanceAxios } from ".";
 
 const kamar = {
     getAllKamar : async() => {
-        const data = await instanceAxios.get("/kamar")
-        return await data.data;
+        try {
+            const data = await instanceAxios.get("/kamar")
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    getFiltered : async (filterData) => {
+        try {
+            const data = await instanceAxios.get("/kamar/filtered", {params : filterData});
+            return await data.data;
+        }catch(error){
+            throw error;
+        }
     },
     getKamarByTipeKamar : async (idTipeKamar) => {
         const data = await instanceAxios.get("/kamar/tipe-kamar/"+idTipeKamar)
