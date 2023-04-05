@@ -72,19 +72,21 @@ function ShowForm({onChangePage, tipeKamarData, onClose}){
 
             <section className="basis-1/3 pl-2 bg-gray-100 rounded">
                 <h5 className="text-sm text-gray-500 font-semibold mb-2" >Daftar Kamar</h5>
-                {((tipeKamarData?.Kamars?.length !== 0) && (tipeKamarData?.Kamars?.length !== null) && (tipeKamarData?.Kamars?.length !== undefined) ) ? (
-                    <ul className="flex flex-col gap-2">
+                <div className="h-full overflow-auto">
+                    {((tipeKamarData?.Kamars?.length !== 0) && (tipeKamarData?.Kamars?.length !== null) && (tipeKamarData?.Kamars?.length !== undefined) ) ? (
+                        <ul className="flex flex-col gap-2">
 
-                        {/* NOTE : looping dibaha harus menggunkaana tanda "?", saya kurangtahu mengapa */}
-                        {(tipeKamarData.Kamars?.map((kamar, index)=> (
-                        <li key={index} className="w-full cursor-default px-2 py-2 border bg-white border-slate-200 border-l-slate-700 hover:bg-slate-200 rounded">
-                            {kamar.nama}
-                        </li>
-                        )))}
-                    </ul>
-                ) : (
-                    <h1 className="text-xl font-semibold text-gray-800">tidak ada kamar tersedia</h1>
-                )}
+                            {/* NOTE : looping dibaha harus menggunkaana tanda "?", saya kurangtahu mengapa */}
+                            {(tipeKamarData.Kamars?.map((kamar, index)=> (
+                            <li key={index} className="w-full cursor-default px-2 py-2 border bg-white border-slate-200 border-l-slate-700 hover:bg-slate-200 rounded">
+                                {kamar.nama}
+                            </li>
+                            )))}
+                        </ul>
+                    ) : (
+                        <h1 className="text-xl font-semibold text-gray-800">tidak ada kamar tersedia</h1>
+                    )}
+                </div>
             </section>
         </div>
         

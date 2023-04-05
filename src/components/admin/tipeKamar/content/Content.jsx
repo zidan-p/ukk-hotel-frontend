@@ -6,6 +6,7 @@ import Pagination from "../../pagination/Pagination"
 
 function TipeKamarContent({contentData, onPageChange, onOpenModal}){
 
+
     return(
         <section className="bg-white ">
             <div className="p-2 flex">
@@ -14,6 +15,9 @@ function TipeKamarContent({contentData, onPageChange, onOpenModal}){
                     totalCount={contentData.pageCount} 
                     currentPage={contentData.pageCurrent}
                     pageSize={contentData.count}
+                    // totalCount={25} 
+                    // currentPage={1}
+                    // pageSize={10}
                     siblingCount={1} //angka diantara angka utama
                 />
             </div>

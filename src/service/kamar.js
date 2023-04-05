@@ -23,8 +23,12 @@ const kamar = {
         return await data.data;
     },
     getKamar : async(idKamar) => {
-        const data = await instanceAxios.get("/kamar/"+idKamar)
-        return await data.data;
+        try {
+            const data = await instanceAxios.get("/kamar/"+idKamar)
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
     },
     createManyWithTipeKamarId : async(idTipeKamar,dataKamar) => {
         const data = await instanceAxios.post("/kamar/create-many-with-tipe-kamar"+idTipeKamar,dataKamar)
@@ -37,6 +41,14 @@ const kamar = {
     createBulkWithTipeKamar : async (idTipeKamar,dataKamar) => {
         const data = await instanceAxios.post("/kamar/create-bulk-with-tipe-kamar/"+idTipeKamar,dataKamar)
         return await data.data
+    },
+    createBulkManyWithTipeKamar : async (idTipeKamar, dataKamar) => {
+        try {
+            const data = await instanceAxios.post("/kamar/create-bulk-many-with-tipe-kamar/"+idTipeKamar, dataKamar);
+            return await data.data;
+        } catch (error) {
+            throw error;
+        }
     },
     searchMany : async (datakamarList) => {
         const data = await instanceAxios.post("/kamar/search",datakamarList)
@@ -52,12 +64,20 @@ const kamar = {
         return await data.data
     },
     updateKamar : async (idKamar,kamarData) => {
-        const data = await instanceAxios.put("/kamar/"+idKamar,kamarData);
-        return await data.data
+        try {
+            const data = await instanceAxios.put("/kamar/"+idKamar,kamarData);
+            return await data.data
+        } catch (error) {
+            throw error;
+        }
     },
     deleteKamar : async (idKamar) => {
-        const data = await instanceAxios.put("/kamar/"+idKamar);
-        return await data.data
+        try {
+            const data = await instanceAxios.delete("/kamar/"+idKamar);
+            return await data.data
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

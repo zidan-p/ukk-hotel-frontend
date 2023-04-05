@@ -2,7 +2,7 @@ import FileForm from "@/components/admin/form/FileForm";
 import InputForm from "@/components/admin/form/InputForm";
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon";
 import XIcon from "@/components/icons/XIcon";
-import tipeKamar from "@/service/tipeKamar";
+import kamar from "@/service/kamar";
 import { IMAGE_SOURCE_URL } from "@/utils/const";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -11,12 +11,9 @@ import { toast } from "react-toastify";
 
 
 
-function EditForm({onChangePage, tipeKamarData, onClose}){
+function EditForm({onChangePage, kamarData, onClose}){
     const [formState, setFormState] = useState({
-        namaTipeKamar : tipeKamarData.namaTipeKamar,
-        harga : tipeKamarData.harga,
-        deskripsi : tipeKamarData.deskripsi,
-        foto : null,
+        nama : kamarData.nama
     });
 
     function handleChange(e){
@@ -26,33 +23,12 @@ function EditForm({onChangePage, tipeKamarData, onClose}){
             [name] : value
         }))
     }
-
-    //sya buat ini supaya meski tak senagaj tertutup statenya masih ada.
-    // jadi setiap ditutup, componentnya harus masih ada.
-    // tapi saya perlu fungsi untuk mereset state setiap melakuakn perubahan data.
-    function resetState(){
-        setFormState({
-            namaTipeKamar : tipeKamarData.namaTipeKamar,
-            harga : tipeKamarData.harga,
-            deskripsi : tipeKamarData.deskripsi,
-            foto : null,
-        })
-    }
-
-    function handleOnFileChange(file){
-        setFormState((prev) => ({
-            ...prev,
-            foto : file
-        }))
-    }
-
     async function sendData(e){
         e.preventDefault();
         try {
-            const result = await tipeKamar.updateTipeKamar(tipeKamarData.id,formState);
+            const result = await kamar.updateKamar(kamarData.id,formState);
             toast.success("data berhasil diubah");
             onClose();
-            resetState();
         } catch (error) {
             console.log(error.response.data);
             toast.error("ada masalah dalam mengirim data")
@@ -62,8 +38,6 @@ function EditForm({onChangePage, tipeKamarData, onClose}){
     function backToShow(){
         onChangePage(1);
     }
-
-
 
 
 
@@ -83,33 +57,11 @@ function EditForm({onChangePage, tipeKamarData, onClose}){
             <div className="form-list grow flex max-h-full flex-col gap-5">
                 <InputForm 
                     onChange={handleChange} 
-                    value={formState.namaTipeKamar} 
-                    name="namaTipeKamar"  
+                    value={formState.nama} 
+                    name="nama"  
                 >
-                    Nama Tipe Kamar
+                    Nama Kamar
                 </InputForm>
-                <InputForm 
-                    onChange={handleChange} 
-                    value={formState.deskripsi} 
-                    name="deskripsi"  
-                >
-                    Deskripsi
-                </InputForm>
-                <InputForm 
-                    onChange={handleChange} 
-                    value={formState.harga} 
-                    name="harga"  
-                >
-                    Harga
-                </InputForm>
-                <FileForm 
-                    className="mt-5"
-                    handleOnChange={handleOnFileChange} 
-                    name="foto" 
-                    fileSrc={IMAGE_SOURCE_URL + tipeKamarData.foto}
-                >
-                    Foto User
-                </FileForm>
             </div>
             <div className="w-full">
                 <button onClick={sendData} className="w-full bg-slate-800 text-white px-5 py-1 rounded-sm hover:bg-slate-700 active:bg-slate-600">

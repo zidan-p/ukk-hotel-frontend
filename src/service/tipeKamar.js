@@ -23,9 +23,7 @@ const tipeKamar = {
         //bahkan data kosongpun
         try {
             const data = await instanceAxios.post("/tipe-kamar/", formData,{
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
+                headers: {'Content-Type': 'multipart/form-data'}
             });
             return await data.data;
         } catch (error) {

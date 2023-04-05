@@ -12,7 +12,8 @@ function TableRows({
     nama,
     namaTipeKamar,
     jumlahPemesanan,
-    tanggalDibuat
+    tanggalDibuat,
+    onOpenModal
 }){
 
     return ( 

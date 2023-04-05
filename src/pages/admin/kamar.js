@@ -23,16 +23,21 @@ function KamarAdmin(){
     })
     const [loading, setLoading] = useState(true);
     const [pageData, setPageData] = useState({}); 
-    const [showSideModal, setShowSideModal] = useState(false);
-    const [activePemesananId, setActivePemesananId] = useState(null);
+    const [showSideModal, setShowSideModal] = useState({
+        show :false,
+        sectionPage : 0 //create
+    });
+    const [activeKamarId, setActiveKamarId] = useState(null);
 
     useEffect(()=>{  setData()  },[])
+
+    //untuk pagination
+    useEffect(()=>{ setData() },[filterParams.page])
 
 
     async function setData(){
         try {
             const data = await kamar.getFiltered(filterParams);
-            console.log(data);
             setPageData(data);
             setLoading(false);
         } catch (error) {
@@ -71,13 +76,13 @@ function KamarAdmin(){
     }
 
     async function onCloseSideModal(){
-        setShowSideModal(false);
+        setShowSideModal({sectionPage : 0,show:false});
         await setData(); //supaya setiap data yang diubah dari modal bisa terupdate
     }
 
-    async function onOpenSideModal(idPemesanan){
-        setActivePemesananId(idPemesanan);
-        setShowSideModal(true);
+    async function onOpenSideModal(idKamar){
+        setActiveKamarId(idKamar);
+        setShowSideModal({sectionPage : 1,show:true});
     }
 
     return(
@@ -112,7 +117,7 @@ function KamarAdmin(){
                     <SideModal
                         handleClose={onCloseSideModal} 
                         show={showSideModal} 
-                        idPemesanan={activePemesananId}
+                        idKamar={activeKamarId}
                     />
                 </>
                 ):(

@@ -1,7 +1,7 @@
 import AlertIcon from "@/components/icons/AlertIcon";
 import ChevronLeftIcon from "@/components/icons/ChevronLeftIcon";
 import XIcon from "@/components/icons/XIcon";
-import tipeKamar from "@/service/tipeKamar";
+import kamar from "@/service/kamar";
 import { toast } from "react-toastify";
 
 
@@ -9,13 +9,13 @@ import { toast } from "react-toastify";
 
 
 
-function DeleteForm({onChangePage, tipeKamarData, onClose}){
+function DeleteForm({onChangePage, kamarData, onClose}){
 
 
     async function deleteUser(){
         try {
             // toast(JSON.stringify(tipeKamarData));
-            const result = await tipeKamar.deleteTipeKamar(tipeKamarData.id);
+            const result = await kamar.deleteKamar(kamarData.id);
             onClose();
             toast.success("data selesai dihapus");
         } catch (error) {
@@ -36,7 +36,7 @@ function DeleteForm({onChangePage, tipeKamarData, onClose}){
                 <ChevronLeftIcon />
                 <h1 className="font-semibold  self-center mr-2">
                     <span className="">Hapus </span>
-                    {tipeKamarData.username}
+                    {kamarData.nama}
                 </h1>
             </button>
             <button onClick={onClose} className="p-1 text-gray-500 hover:text-slate-800 hover:bg-slate-200">
@@ -48,8 +48,8 @@ function DeleteForm({onChangePage, tipeKamarData, onClose}){
             <div className="bg-red-50 rounded p-3 pt-5">
                 <AlertIcon className={"text-red-700 w-20 h-20 mx-auto mb-5"} />
                 <p className="text-center text-red-800">
-                    apakah anda yakin ingin menghapus data tipe kamar 
-                    <span className="inline-block bg-red-200 px-2 rounded font-semibold">{tipeKamarData.namaTipeKamar}</span>
+                    apakah anda yakin ingin menghapus data kamar
+                    <span className="inline-block bg-red-200 px-2 rounded font-semibold">{kamarData.nama}</span>
                 </p>
             </div>
             <div className="flex px-2 gap-2">

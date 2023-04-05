@@ -46,12 +46,11 @@ function Login(){
             if(!result.success)throw {...result.data}
             router.push("/admin");
         } catch (error) {
-            console.log(error.response.data.error)
+            console.log(error?.response?.data?.error || "ada masalah")
             setErrorData({
                 isError: true,
-                errorBag: error.response.data.error
+                errorBag: error?.response?.data?.error || "ada masalah"
             })
-
         }
     }
 
