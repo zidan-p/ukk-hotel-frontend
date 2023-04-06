@@ -49,6 +49,9 @@ function EditForm({onChangePage, tipeKamarData, onClose}){
     async function sendData(e){
         e.preventDefault();
         try {
+            toast(JSON.stringify(formState));
+            console.log(formState)
+            // return
             const result = await tipeKamar.updateTipeKamar(tipeKamarData.id,formState);
             toast.success("data berhasil diubah");
             onClose();

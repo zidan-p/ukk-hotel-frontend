@@ -32,7 +32,9 @@ const tipeKamar = {
     },
     updateTipeKamar : async (idTipeKamar,formData) => {
         try {
-            const data = await instanceAxios.put("/tipe-kamar/"+idTipeKamar,formData)
+            const data = await instanceAxios.put("/tipe-kamar/"+idTipeKamar,formData, {
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
             return await data.data;
         } catch (error) {
             throw error;
